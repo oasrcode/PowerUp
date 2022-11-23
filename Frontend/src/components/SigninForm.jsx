@@ -1,37 +1,71 @@
+import { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
+import {TiArrowBack}from 'react-icons/ti'
 import { UserAuth } from "../Context/AuthContext";
-export function SignupForm() {
+export function SigninForm() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const {createUser} = UserAuth();
+  const { googleSignIn, signIn,user } = UserAuth();
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  
-
-  async function HandleSummit(e){
-    e.preventDefault();
-    try{
-      await createUser(email,password);
-    }catch(err){
-      console.log(err)
-    }
+  function ErrorAlert(){
+    return(<div className="flex w-full h-14 bg-red-300 items-center px-4 border-2 border-red-800 font-semibold"> 
+    <p className="text-red-700">Error +{error}</p>
+    </div>)
   }
+
+  /*Hacer ruta protegida para solo entrar si no estas logeado lo mismo con la pagina de registro*/ 
+  useEffect(()=>{
+   user ? navigate("/") : null
+  },[user])
+
+  async function HandleSummit(e) {
+    e.preventDefault();
+    try {
+      
+      await signIn(email, password);
+     
+    } catch (err) {
+    
+      setError(err.message);
+    }
+   
+  }
+
+  async function handleGoogleLogin() {
+    try {
+      await googleSignIn();
+ 
+    } catch (err) {
+      
+      setError(err.message);
+    }
+   
+  }
+
   return (
-    <div className="flex flex-col w-full h-full  text-black  justify-evenly">
-       <p className="text-center font-bold text-2xl">Crea tu cuenta</p>
-      <form onSubmit={HandleSummit}>
-        <div className="flex flex-col ">
-          <label className="text-black p-4 font-bold">Usuario</label>
-          <input
-            className="p-4 m-3 text-gray-700 rounded-md"
-            type={"text"}
-            placeholder="nombre de usuario"
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
+    <div className="flex flex-col w-full h-full  text-black  pt-10 justify-evenly ">
+       <p className="text-center font-bold text-2xl">Bienvenido</p>
+       <div className="flex flex-row space-x-2 ">
+          <p className="pl-3">¿Aun no tienes cuenta?</p>
+          <span
+            className="font-bold hover:text-blue-900"
+            onClick={() => navigate("/signup")}
+          >
+            registrate
+          </span>
         </div>
+
+       {error? (<div className="flex w-full h-14 bg-red-300 items-center px-4 border-2 border-red-800 font-semibold"> 
+    <p className="text-red-700">{error}</p>
+    </div>): null}
+
+      
+      <form onSubmit={HandleSummit}>
         <div className="flex flex-col">
+          
           <label className="text-black p-4 font-bold">Email</label>
           <input
             className="p-4 m-3 text-gray-700 rounded-md"
@@ -65,7 +99,7 @@ export function SignupForm() {
         <hr className="mr-2 border-1 border-gray-600 w-full" />
       </div>
 
-      <div className="flex flex-row items-center self-center space-x-2 mb-2">
+      <div className="flex flex-row items-center self-center space-x-2">
         <button
           className="p-4 text-lg font-bold bg-slate-50 shadow-sm shadow-black text-black rounded-full hover:bg-slate-300"
           onClick={() => handleGoogleLogin()}

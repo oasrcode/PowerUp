@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        'shredded':'#FB2576',
+        'primario':'#FB2576',
+        'secundario':'#FB2576'
       },
       fontFamily:{
         candice:["Candice","bold"]

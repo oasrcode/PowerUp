@@ -1,20 +1,21 @@
-import { Header } from './components/Header'
-import { Home } from './Pages/Home'
-import { Signin } from './Pages/Signin'
-import { Signup } from './Pages/Signup'
+import { Home } from "./Pages/Home";
+import { Signup } from "./Pages/Signup";
+import { Signin } from "./Pages/Signin";
+import { Routes, Route } from "react-router-dom";
+import { AuthContextProvider } from "./Context/AuthContext";
 
 function App() {
- 
-
   return (
-    <div className='bg-gradient-to-tr from-gray-900 via-slate-900 to-[#4b0c24] font-candice'>
-    <Header/>
-    <Home/>
-   
-    <Signin/>
-    <Signup/>
-    </div>
-  )
+    <>
+      <AuthContextProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </AuthContextProvider>
+    </>
+  );
 }
 
-export default App
+export default App;
