@@ -16,7 +16,7 @@ export function SigninForm() {
     </div>)
   }
 
-  /*Hacer ruta protegida para solo entrar si no estas logeado lo mismo con la pagina de registro*/ 
+  /*Hacer ruta protegida para solo entrar si no estas logeado lo mismo con la pagina de registro asd*/ 
   useEffect(()=>{
    user ? navigate("/") : null
   },[user])
