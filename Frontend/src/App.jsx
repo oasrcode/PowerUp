@@ -11,6 +11,7 @@ import { BodyFat } from "./Pages/BodyFat";
 import { DailyCals } from "./Pages/DailyCals";
 import { Protected } from "./Context/Protected";
 import { Landing } from "./Pages/Landing";
+import { MiFicha } from "./Pages/MiFicha";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}>
             <Route index element={<Landing />} />
+            <Route path="mificha" element={<MiFicha/>}/>
             <Route path="profile" element={<Profile/>}/>
             <Route path="lifts" element={<Lifts />} />
             <Route path="progress" element={<Progress />} />
