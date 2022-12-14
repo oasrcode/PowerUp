@@ -1,27 +1,79 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { AiOutlineSave, AiOutlineEdit } from "react-icons/ai";
+import axios from "axios"
+import { UserAuth } from "../Context/AuthContext";
 
 export function Profile() {
   const [enable, setEnable] = useState(true); //false to activate
 
   const [name, setName] = useState();
-  const [surname, setSurname] = useState();
   const [date, setDate] = useState();
   const [weight, setweight] = useState();
   const [height, setheight] = useState();
+ 
 
+  const {user} = UserAuth();
 
+  useEffect(()=>{
+
+    getUser();
+    
+  },[])
+
+  async function getUser() {
+    var config = {
+      method: "get",
+      url: "http://localhost:8080/api/users/"+user.email,
+      headers: {
+        "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
+        "Content-Type": "application/json",
+        AuthToken: user.accessToken,
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      
+        setName(response.data.name)
+        setDate(response.data.date)
+        setweight(response.data.weight)
+        setheight(response.data.height)
+      
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const user = {}
-    user.name=name;
-    user.surname=surname;
-    user.date=date;
-    user.weight=weight;
-    user.height=height;
-    console.log(user)
+    const data = {}
+    data.name=name;
+    data.date=date;
+    data.weight=weight;
+    data.height=height;
+    console.log(data)
+
+    var config = {
+      method: "put",
+      url: "http://localhost:8080/api/users/"+user.email,
+      headers: {
+        "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
+        "Content-Type": "application/json",
+        AuthToken: user.accessToken,
+      },
+      data:data
+    };
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    
     setEnable(true);
   }
 
@@ -36,19 +88,8 @@ export function Profile() {
               id="name"
               className="p-3 rounded-md w-full "
               type={"text"}
-              placeholder="nombre"
+              value={name}
               onChange={()=>setName(event.target.value)}
-            ></input>
-          </div>
-
-          <div className="flex flex-col space-y-3">
-            <label className="font-semibold text-black text-lg">Apellido</label>
-            <input
-              id="surname"
-              className="p-3 rounded-md w-full"
-              type={"text"}
-              placeholder="Apellidos"
-              onChange={()=>setSurname(event.target.value)}
             ></input>
           </div>
 
@@ -60,29 +101,31 @@ export function Profile() {
               id="date"
               className="p-3 rounded-md w-full"
               type={"date"}
-              placeholder="nombre"
+              value={date}
               onChange={()=>setDate(event.target.value)}
             ></input>
           </div>
 
           <div className="flex flex-col space-y-3 w-44">
-            <label className="font-semibold text-black text-lg">Peso</label>
+            <label className="font-semibold text-black text-lg">Peso en kg</label>
             <input
               id="weight"
               className="p-3 rounded-md w-full"
               type={"number"}
               placeholder="peso en kg"
+              value={weight}
               onChange={()=>setweight(event.target.value)}
             ></input>
           </div>
 
           <div className="flex flex-col space-y-3 w-44">
-            <label className="font-semibold text-black text-lg">Altura</label>
+            <label className="font-semibold text-black text-lg">Altura en cm</label>
             <input
               id="height"
               className="p-3 rounded-md w-full"
               type={"number"}
               placeholder="altura en cm"
+              value={height}
               onChange={()=>setheight(event.target.value)}
             ></input>
           </div>

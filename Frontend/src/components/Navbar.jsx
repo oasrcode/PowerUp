@@ -32,19 +32,22 @@ export function NavBar() {
           <Link to="lifts">Levantamientos</Link>
         </li>
         <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="/progress">Progreso</Link>
+          <Link to="progress">Progreso</Link>
         </li>
         <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="/imc">IMC</Link>
+          <Link to="imc">IMC</Link>
         </li>
         <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="/bodyfat">Grasa Corporal</Link>
+          <Link to="bodyfat">Grasa Corporal</Link>
         </li>
         <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="/dailycals">Calorias diarias</Link>
+          <Link to="dailycals">Calorias diarias</Link>
         </li>
         <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
           <Link to="profile">Mi perfil</Link>
+        </li>
+        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
+          <Link to="mificha">Mi ficha</Link>
         </li>
       </ul>
 

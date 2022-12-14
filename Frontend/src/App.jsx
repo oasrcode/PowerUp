@@ -34,7 +34,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}>
             <Route index element={<Landing />} />
-            <Route path="mificha" element={<MiFicha/>}/>
+            <Route path="/mificha" element={<MiFicha/>}/>
             <Route path="profile" element={<Profile/>}/>
             <Route path="lifts" element={<Lifts />} />
             <Route path="progress" element={<Progress />} />

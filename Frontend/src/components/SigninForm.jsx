@@ -3,6 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import {TiArrowBack}from 'react-icons/ti'
 import { UserAuth } from "../Context/AuthContext";
+import axios from "axios";
 export function SigninForm() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -10,40 +11,54 @@ export function SigninForm() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  function ErrorAlert(){
-    return(<div className="flex w-full h-14 bg-red-300 items-center px-4 border-2 border-red-800 font-semibold"> 
-    <p className="text-red-700">Error +{error}</p>
-    </div>)
-  }
-
-  /*Hacer ruta protegida para solo entrar si no estas logeado lo mismo con la pagina de registro asd*/ 
-  useEffect(()=>{
-   user ? navigate("/") : null
-  },[user])
-
+  
+  
+ 
   async function HandleSummit(e) {
     e.preventDefault();
-    try {
-      
+    try { 
       await signIn(email, password);
-     
     } catch (err) {
-    
       setError(err.message);
     }
-   
   }
 
-  async function handleGoogleLogin() {
-    try {
-      await googleSignIn();
- 
-    } catch (err) {
-      
-      setError(err.message);
-    }
+  // async function emailExistInDB(){
+  //   const newUser={};
+  //   newUser.email=email;
    
-  }
+  //   var config = {
+  //     method: "get",
+  //     url: "http://localhost:8080/api/users/"+email,
+  //     headers: {
+  //       'Access-Control-Allow-Origin': 'http://127.0.0.1:8081/',
+  //       'Content-Type': 'application/json',
+  //   },
+  //   };
+   
+  //   axios(config).then((res)=>{
+  //    return res.statusText
+  //   })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
+
+  // async function handleGoogleLogin() {
+
+    
+  //       try {
+  //         await googleSignIn();
+  //         console.log(emailExistInDB(user.email))
+          
+  //       } catch (err) {
+          
+  //         setError(err.message);
+  //       }
+      
+   
+      
+  // }
 
   return (
     <div className="flex flex-col w-full h-full  text-black  pt-10 justify-evenly ">
@@ -59,7 +74,7 @@ export function SigninForm() {
         </div>
 
        {error? (<div className="flex w-full h-14 bg-red-300 items-center px-4 border-2 border-red-800 font-semibold"> 
-    <p className="text-red-700">{error}</p>
+    <p className="text-red-700 z-10 float">{error}</p>
     </div>): null}
 
       
@@ -93,13 +108,13 @@ export function SigninForm() {
         </div>
       </form>
 
-      <div className="flex flex-row justify-between items-center mx-2">
+      {/* <div className="flex flex-row justify-between items-center mx-2">
         <hr className="border-1 border-gray-500 w-full" />
         <p className="w-full text-center"> o inicia con</p>
         <hr className="mr-2 border-1 border-gray-600 w-full" />
-      </div>
+      </div> */}
 
-      <div className="flex flex-row items-center self-center space-x-2">
+      {/* <div className="flex flex-row items-center self-center space-x-2">
         <button
           className="p-4 text-lg font-bold bg-slate-50 shadow-sm shadow-black text-black rounded-full hover:bg-slate-300"
           onClick={() => handleGoogleLogin()}
@@ -107,7 +122,7 @@ export function SigninForm() {
           <FcGoogle size={25} />
         </button>
         <p className="font-bold text-xl">Google</p>
-      </div>
+      </div> */}
     </div>
   );
 }

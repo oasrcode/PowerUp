@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FcBusinesswoman, FcBusinessman } from "react-icons/fc";
-import { useSearchParams } from "react-router-dom";
-
+import { UserAuth } from "../Context/AuthContext";
+import axios from "axios";
 export function DailyCals() {
   const [gender, setGender] = useState();
   const [age, setAge] = useState();
@@ -10,6 +10,8 @@ export function DailyCals() {
   const [activity, setActivity] = useState();
   const [calories, setCalories] = useState();
   const [result, setResult] = useState(false);
+
+  const{user}=UserAuth();
 
   function CalculaeCalories() {
     if (gender == "male") {
@@ -29,7 +31,29 @@ export function DailyCals() {
 
   function HandleSummit(e) {
     e.preventDefault();
-    let calories = 0;
+    CalculaeCalories();
+    let data={};
+
+    data.calories=calories
+
+
+    var config = {
+      method: "put",
+      url: "http://localhost:8080/api/users/"+user.email,
+      headers: {
+        "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
+        "Content-Type": "application/json",
+        AuthToken: user.accessToken,
+      },
+      data:data
+    };
+    axios(config)
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   return (
@@ -67,7 +91,7 @@ export function DailyCals() {
 
           <div className="flex flex-col items-center justify-evenly ">
             <p className="font-bold text-2xl text-gray-700">
-              ¿Cuántos añitos tienes?
+              ¿Cuántos años tienes?
             </p>
             <div className="flex flex-row items-center justify-center  h-44 w-full gap-4 ">
               <input
