@@ -1,19 +1,14 @@
 import { useEffect, useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-import {TiArrowBack}from 'react-icons/ti'
 import { UserAuth } from "../Context/AuthContext";
-import axios from "axios";
+
 export function SigninForm() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const { googleSignIn, signIn,user } = UserAuth();
+  const { signIn } = UserAuth();
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  
-  
- 
   async function HandleSummit(e) {
     e.preventDefault();
     try { 
@@ -23,50 +18,15 @@ export function SigninForm() {
     }
   }
 
-  // async function emailExistInDB(){
-  //   const newUser={};
-  //   newUser.email=email;
-   
-  //   var config = {
-  //     method: "get",
-  //     url: "http://localhost:8080/api/users/"+email,
-  //     headers: {
-  //       'Access-Control-Allow-Origin': 'http://127.0.0.1:8081/',
-  //       'Content-Type': 'application/json',
-  //   },
-  //   };
-   
-  //   axios(config).then((res)=>{
-  //    return res.statusText
-  //   })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
 
-  // async function handleGoogleLogin() {
-
-    
-  //       try {
-  //         await googleSignIn();
-  //         console.log(emailExistInDB(user.email))
-          
-  //       } catch (err) {
-          
-  //         setError(err.message);
-  //       }
-      
-   
-      
-  // }
 
   return (
-    <div className="flex flex-col w-full h-full  text-black  pt-10 justify-evenly ">
-       <p className="text-center font-bold text-2xl">Bienvenido</p>
+    <div className="flex flex-col w-auto max-w-auto h-screen  text-red  pt-10 justify-evenly ">
+       <p className="text-center font-bold text-2xl text-white lg:text-black">Bienvenido</p>
        <div className="flex flex-row space-x-2 ">
-          <p className="pl-3">¿Aun no tienes cuenta?</p>
+          <p className="pl-3 text-white lg:text-black">¿Aun no tienes cuenta?</p>
           <span
-            className="font-bold hover:text-blue-900"
+            className="font-bold text-white lg:text-black hover:text-red-900"
             onClick={() => navigate("/signup")}
           >
             registrate
@@ -81,26 +41,29 @@ export function SigninForm() {
       <form onSubmit={HandleSummit}>
         <div className="flex flex-col">
           
-          <label className="text-black p-4 font-bold">Email</label>
+          <label className="text-white lg:text-black p-4 font-bold">Email</label>
           <input
             className="p-4 m-3 text-gray-700 rounded-md"
             type={"email"}
             placeholder="email@email.com"
             onChange={(e) => setEmail(e.target.value)}
+            required
           ></input>
         </div>
         <div className="flex flex-col">
-          <label className="text-black p-4 font-bold">Contraseña</label>
+          <label className=" p-4 font-bold text-white lg:text-black">Contraseña</label>
           <input
             className="p-4 m-3 text-gray-700 rounded-md"
             type={"password"}
             placeholder="contraseña"
             onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={6}
           ></input>
         </div>
         <div className="flex flex-col mt-7">
           <button
-            className="p-3 mx-3 rounded-md text-lg font-bold bg-slate-100 hover:bg-slate-300 text-black shadow-sm shadow-black"
+            className="p-3 mx-3 rounded-md text-lg font-bold text-gray-50 bg-red-700 hover:opacity-60 shadow-sm shadow-black"
             type={"submit"}
           >
             Continuar
@@ -108,21 +71,6 @@ export function SigninForm() {
         </div>
       </form>
 
-      {/* <div className="flex flex-row justify-between items-center mx-2">
-        <hr className="border-1 border-gray-500 w-full" />
-        <p className="w-full text-center"> o inicia con</p>
-        <hr className="mr-2 border-1 border-gray-600 w-full" />
-      </div> */}
-
-      {/* <div className="flex flex-row items-center self-center space-x-2">
-        <button
-          className="p-4 text-lg font-bold bg-slate-50 shadow-sm shadow-black text-black rounded-full hover:bg-slate-300"
-          onClick={() => handleGoogleLogin()}
-        >
-          <FcGoogle size={25} />
-        </button>
-        <p className="font-bold text-xl">Google</p>
-      </div> */}
     </div>
   );
 }

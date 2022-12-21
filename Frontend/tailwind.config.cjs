@@ -7,11 +7,14 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        'primario':'#FB2576',
-        'secundario':'#FB2576'
+        'moredark':'#0A0A0D',
+        'dark':'#212026',
       },
       fontFamily:{
         candice:["Candice","bold"]
+      },
+      backgroundImage: {
+        'home-bg': "url('/src/assets/background.jpg')",
       }
     },
   },

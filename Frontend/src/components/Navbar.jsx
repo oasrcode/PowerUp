@@ -18,6 +18,19 @@ export function NavBar() {
       >
         Jacked{" "}
       </h1>
+
+      <ul className="hidden lg:flex flex-row items-center justify-center space-x-10">
+        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
+          <Link to="lifts">Levantamientos</Link>
+        </li>
+        
+        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
+          <Link to="profile">Mi perfil</Link>
+        </li>
+        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
+          <Link to="mificha">Mi ficha</Link>
+        </li>
+      </ul>
        <div
         className="flex flex-row space-x-4 items-center "
         onClick={user ? () => SignOut() : () => navigate("/signin")}
@@ -27,29 +40,7 @@ export function NavBar() {
           {user ? "Cerrar Sesión" : "Iniciar Sesión"}
         </p>
       </div> 
-      <ul className="hidden lg:flex flex-row items-center justify-center space-x-10">
-        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="lifts">Levantamientos</Link>
-        </li>
-        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="progress">Progreso</Link>
-        </li>
-        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="imc">IMC</Link>
-        </li>
-        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="bodyfat">Grasa Corporal</Link>
-        </li>
-        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="dailycals">Calorias diarias</Link>
-        </li>
-        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="profile">Mi perfil</Link>
-        </li>
-        <li className=" bg-slate-50 font-semibold text-black px-6 py-2 rounded-md hover:bg-slate-200">
-          <Link to="mificha">Mi ficha</Link>
-        </li>
-      </ul>
+      
 
 
     </header>
