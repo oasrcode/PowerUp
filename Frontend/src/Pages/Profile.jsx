@@ -6,17 +6,30 @@ import { UserAuth } from "../Context/AuthContext";
 
 export function Profile() {
   const [enable, setEnable] = useState(true); //false to activate
-
-  const [name, setName] = useState();
-  const [date, setDate] = useState();
-  const [weight, setweight] = useState();
-  const [height, setheight] = useState();
+  const [userData, setUserData] = useState({});
+  const [name, setName] = useState("");
+  const [date, setDate] = useState("");
+  const [weight, setweight] = useState(0);
+  const [height, setheight] = useState(0);
 
   const { user } = UserAuth();
 
   useEffect(() => {
-    getUser();
-  }, []);
+    if (user.accessToken) {
+      getUser()
+        .then((res) => {
+          setUserData(res.data);
+          setName(res.data.name);
+          setDate(res.data.date);
+          setweight(res.data.weight);
+          setheight(res.data.height)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+    }
+  }, [user]);
 
   async function getUser() {
     var config = {
@@ -28,18 +41,7 @@ export function Profile() {
         AuthToken: user.accessToken,
       },
     };
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-
-        setName(response.data.name);
-        setDate(response.data.date);
-        setweight(response.data.weight);
-        setheight(response.data.height);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    return axios(config);
   }
 
   function handleSubmit(e) {
@@ -50,7 +52,7 @@ export function Profile() {
     data.date = date;
     data.weight = weight;
     data.height = height;
-    console.log(data);
+  
 
     var config = {
       method: "put",
@@ -64,7 +66,7 @@ export function Profile() {
     };
     axios(config)
       .then(function (response) {
-        console.log(JSON.stringify(response.data));
+      
       })
       .catch(function (error) {
         console.log(error);
@@ -79,7 +81,9 @@ export function Profile() {
         <h2 className="font-semibold text-2xl  text-center ">Mi perfil</h2>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col space-y-3">
-            <label className="font-semibold text-black text-lg">Nombre</label>
+            <label className="font-semibold text-black text-lg pt-2">
+              Nombre de usuario
+            </label>
             <input
               id="name"
               className="p-3 rounded-md w-full border-2 border-red-700 text-gray-900 disabled:text-gray-400 disabled:bg-slate-100 disabled:border-gray-400 disabled:border-2"

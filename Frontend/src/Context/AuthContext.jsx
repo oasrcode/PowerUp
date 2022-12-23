@@ -9,18 +9,17 @@ import {
   onAuthStateChanged,
   getAuth,
 } from "firebase/auth";
-import axios from "axios";
+
 import { auth } from "../firebase";
 import { useNavigate } from "react-router-dom";
 const AuthContext = createContext();
-
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const navigate = useNavigate();
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
-     signInWithPopup(auth, provider);
+    signInWithPopup(auth, provider);
     //signInWithRedirect(auth, provider);
   };
 
@@ -28,12 +27,9 @@ export const AuthContextProvider = ({ children }) => {
     signOut(auth);
   };
 
-
-
-  const createUser = (name,email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password)
+  const createUser = (name, email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
   };
-
 
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
@@ -42,7 +38,6 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currUser) => {
       setUser(currUser);
-       
     });
 
     return () => {
@@ -52,7 +47,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ googleSignIn, user, SignOut, createUser, signIn,getAuth }}
+      value={{ googleSignIn, user, SignOut, createUser, signIn, getAuth }}
     >
       {children}
     </AuthContext.Provider>

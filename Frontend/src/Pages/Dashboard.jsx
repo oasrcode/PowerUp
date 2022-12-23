@@ -3,8 +3,10 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { CgHome } from "react-icons/cg";
 import { GiWeightLiftingUp } from "react-icons/gi";
 import { useState } from "react";
-
+import { UserAuth } from "../Context/AuthContext";
 export function DashBoard() {
+const {SignOut} = UserAuth()
+
   const [release, setRelease] = useState(false);
 
   const navigate = useNavigate();
@@ -53,6 +55,7 @@ export function DashBoard() {
             >
               <GiWeightLiftingUp size={20} /> Levantamientos{" "}
             </button>
+            <button onClick={()=>SignOut()}>Cerrar Sesión</button>
             
           </div>
         </div>

@@ -59,7 +59,7 @@ export function DailyCals() {
   }
 
   return (
-    <div className="flex flex-col w-full max-w-full h-screen overflow-auto">
+    <div className="flex flex-col w-full max-w-full h-screen overflow-auto rounded-md shadow-md shadow-neutral-700">
       <form onSubmit={HandleSummit}>
         <div className="md:grid  md:grid-cols-2 md:pt-24 lg:pt-5 md:mx-4">
           <div className="col-span-1 flex flex-col items-center justify-between">
