@@ -35,34 +35,44 @@ export function DailyCals() {
     e.preventDefault();
     CalculateCalories();
     setResult(true);
+  }
+
+  function postCalories() {
     let data = {};
 
     data.calories = calories;
 
-    // var config = {
-    //   method: "put",
-    //   url: "http://localhost:8080/api/users/" + user.email,
-    //   headers: {
-    //     "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-    //     "Content-Type": "application/json",
-    //     AuthToken: user.accessToken,
-    //   },
-    //   data: data,
-    // };
-    // axios(config)
-    //   .then(function (response) {
-    //     console.log(JSON.stringify(response.data));
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    if(user.accessToken){
+      let firebase_id = user.uid;
+      let token = user.accessToken;
+
+      var config = {
+        method: "put",
+        url: "http://localhost:8080/api/users/" + firebase_id,
+        headers: {
+          "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
+          "Content-Type": "application/json",
+          AuthToken: token,
+        },
+        data: data,
+      };
+      axios(config)
+        .then(function (response) {
+          
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+   
   }
 
   return (
-    <div className="flex flex-col w-full max-w-full h-screen overflow-auto rounded-md shadow-md shadow-neutral-700">
+    <div className="flex flex-col w-full max-w-full h-screen overflow-auto xl:w-11/12  xl:mx-auto xl:my-auto 2xl:pt-20">
       <form onSubmit={HandleSummit}>
-        <div className="md:grid  md:grid-cols-2 md:pt-24 lg:pt-5 md:mx-4">
-          <div className="col-span-1 flex flex-col items-center justify-between">
+        <div className="flex flex-col md:grid md:grid-cols-2 pt-10 xl:pt-5 md:pt-24 lg:pt-5 md:mx-4 2xl:gap-10 md:gap-10">
+          <div className="col-span-1 flex flex-col  items-center justify-between">
             <p className="flex font-bold text-2xl text-gray-700">
               ¿Cuál es tu género?
             </p>
@@ -72,10 +82,10 @@ export function DailyCals() {
             >
               <div className="flex flex-col">
                 <label
-                  className={
+                   className={
                     gender == "male"
                       ? "  bg-sky-100 rounded-xl  border-4 border-blue-600"
-                      : " ounded-xl bg-slate-50"
+                      : " rounded-xl bg-slate-50 border-4 border-neutral-200 opacity-60"
                   }
                   onClick={() => {
                     setGender("male"), setIswoman(false);
@@ -98,7 +108,7 @@ export function DailyCals() {
                   className={
                     gender == "female"
                       ? " bg-pink-100 rounded-xl  border-4 border-pink-600"
-                      : " rounded-xl bg-slate-50 "
+                      : " rounded-xl border-4 border-neutral-200 bg-slate-50 opacity-60 "
                   }
                   onClick={() => {
                     setGender("female"), setIswoman(true);
@@ -192,21 +202,22 @@ export function DailyCals() {
           <div className=" col-span-3 flex items-center justify-center pt-10">
             <button
               type={"submit"}
-              className="px-8 py-2 rounded-xl bg-red-700 text-white hover:bg-black"
+              className="px-8 py-2 rounded-xl bg-red-700 text-neutral-50 hover:opacity-60"
             >
               Calcular
             </button>
           </div>
 
-          <div className="block col-span-3 pt-10">
+          <div className="block col-span-3 pt-10 xl:pt-5">
             {result ? (
-              <div className=" flex flex-col items-center justify-center gap-4  lg:mb-10  bg-black lg:rounded-3xl lg:w-1/3 lg:mx-auto">
-                <p className="font-bold text-xl text-white pt-4 text-center">
+             <div className=" flex flex-col xl:flex-row items-center justify-center md:gap-4  bg-black lg:rounded-3xl xl:w-4/6 2xl:w-3/6 lg:mx-auto">
+             <p className="font-bold text-lg md:text-xl text-neutral-50 py-4 text-center">
                   Tus calorias diarías son de {calories}.
                 </p>
                 <button
-                  className="px-6 py-2 text-white bg-red-700 text-xl rounded-xl mb-4 flex flex-row items-center gap-2"
+                   className="flex flex-row  items-center gap-2 mb-4 xl:mb-0    px-8 py-2 rounded-xl bg-red-700 text-white hover:opacity-60"
                   type={"button"}
+                  onClick={()=>postCalories()}
                 >
                   Guardar
                   <AiOutlineSave size={30} />

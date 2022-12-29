@@ -5,7 +5,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
   define: {
-    timestamps: false
+    timestamps: false,
   },
   operatorsAliases: false,
 
@@ -27,24 +27,24 @@ db.exercise = require("./exercise.model.js")(sequelize, Sequelize);
 db.user_logs = require("./user_logs.model")(sequelize, Sequelize);
 
 db.users.hasMany(db.user_logs, {
-  foreignKey: 'user_id',
-  allowNull: false
+  foreignKey: "firebase_id",
+  allowNull: false,
 });
 
 db.exercise.hasMany(db.user_logs, {
-  foreignKey: 'exercise_id',
-  allowNull: false
+  foreignKey: "exercise_id",
+  allowNull: false,
 });
 
-db.user_logs.belongsTo(db.users, {
-  foreignKey: 'user_id'
-});
+// db.user_logs.belongsTo(db.users, {
+//   foreignKey: 'firebase_id'
+// });
 
-db.user_logs.belongsTo(db.users, {
-  foreignKey: 'exercise_id'
-});
+// db.user_logs.belongsTo(db.exercise, {
+//   foreignKey: 'exercise_id'
+// });
+db.user_logs.belongsTo(db.users, {foreignKey: 'firebase_id'   });
 
-
-
+db.user_logs.belongsTo(db.exercise, { foreignKey: 'exercise_id'});
 
 module.exports = db;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../Context/AuthContext";
 
@@ -9,6 +9,8 @@ export function SigninForm() {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
+
+
   async function HandleSummit(e) {
     e.preventDefault();
     try { 
@@ -18,15 +20,16 @@ export function SigninForm() {
     }
   }
 
+  
 
 
   return (
     <div className="flex flex-col w-auto max-w-auto h-screen  text-red  pt-10 justify-evenly ">
-       <p className="text-center font-bold text-2xl text-white lg:text-black">Bienvenido</p>
+       <p className="text-center font-bold text-2xl text-white lg:text-neutral-900">Bienvenido</p>
        <div className="flex flex-row space-x-2 ">
-          <p className="pl-3 text-white lg:text-black">¿Aun no tienes cuenta?</p>
+          <p className="pl-3 text-white lg:text-neutral-900">¿Aun no tienes cuenta?</p>
           <span
-            className="font-bold text-white lg:text-black hover:text-red-900"
+            className="font-bold text-white lg:text-black hover:text-red-700 hover:underline "
             onClick={() => navigate("/signup")}
           >
             registrate
@@ -41,9 +44,9 @@ export function SigninForm() {
       <form onSubmit={HandleSummit}>
         <div className="flex flex-col">
           
-          <label className="text-white lg:text-black p-4 font-bold">Email</label>
+          <label className="text-white lg:text-neutral-900 p-4 font-bold">Email</label>
           <input
-            className="p-4 m-3 text-gray-700 rounded-md"
+            className="p-4 m-3 text-gray-700 rounded-md border-2 border-red-700"
             type={"email"}
             placeholder="email@email.com"
             onChange={(e) => setEmail(e.target.value)}
@@ -51,9 +54,9 @@ export function SigninForm() {
           ></input>
         </div>
         <div className="flex flex-col">
-          <label className=" p-4 font-bold text-white lg:text-black">Contraseña</label>
+          <label className=" p-4 font-bold text-white lg:text-neutral-900">Contraseña</label>
           <input
-            className="p-4 m-3 text-gray-700 rounded-md"
+            className="p-4 m-3 text-gray-700 rounded-md border-2 border-red-700"
             type={"password"}
             placeholder="contraseña"
             onChange={(e) => setPassword(e.target.value)}

@@ -1,17 +1,20 @@
 module.exports = app => {
     const users_logs = require("../controllers/user_logs.controller");
+    const auth = require("../middleware/FirebaseAuth.js")
   
     var router = require("express").Router();
 
-    router.post("/", users_logs.create);
+    router.post("/",auth.checkAuth, users_logs.create);
 
-    router.get("/", users_logs.findAllWeight);
- 
-    router.get("/max/", users_logs.findMaxWeight);
+    // router.get("/:exercise_id/:firebase_id/",auth.checkAuth, users_logs.findAllWeight);
 
-    router.put("/", users_logs.update);
+    router.get("/last10/:exercise_id/:firebase_id/",auth.checkAuth, users_logs.findLast10);
  
-    router.delete("/:id_log", users_logs.delete);
+    router.get("/max/:exercise_id/:firebase_id/",auth.checkAuth, users_logs.findMaxWeight);
+
+    router.put("/:log_id",auth.checkAuth, users_logs.update);
+ 
+    router.delete("/:log_id",auth.checkAuth, users_logs.delete);
 
     app.use('/api/user_logs', router);
   };

@@ -1,17 +1,16 @@
-module.exports = app => {
-    const users = require("../controllers/user.controller.js");
-    const auth = require("../middleware/FirebaseAuth.js")
+module.exports = (app) => {
+  const users = require("../controllers/user.controller.js");
+  const auth = require("../middleware/FirebaseAuth.js");
 
-    var router = require("express").Router();
+  var router = require("express").Router();
 
-    router.post("/", users.create);
- 
+  router.post("/", users.create);
 
-    router.get("/:email",auth.checkAuth, users.findby_Email);
+  router.get("/:firebase_id", auth.checkAuth, users.findby_FirebaseID);
 
-    router.put("/:email",auth.checkAuth, users.update);
- 
-    // router.delete("/:id_firebase", users.delete);
+  router.put("/:firebase_id", auth.checkAuth, users.update);
 
-    app.use('/api/users', router);
-  };
+  // router.delete("/:id_firebase", users.delete);
+
+  app.use("/api/users", router);
+};

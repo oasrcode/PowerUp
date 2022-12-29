@@ -4,39 +4,42 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER(11),
       allowNull: false,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     name: {
       type: Sequelize.STRING,
-      allowNull: true
+      allowNull: true,
+    },
+    firebase_id: {
+      type: Sequelize.STRING,
+      allowNull: true,
+      unique: true,
     },
     email: {
       type: Sequelize.STRING,
       allowNull: false,
-      unique:true
+      unique: true,
     },
     date: {
       type: Sequelize.STRING,
-      allowNull: true
+      allowNull: true,
     },
     height: {
       type: Sequelize.INTEGER,
-      allowNull: true
+      allowNull: true,
     },
     weight: {
       type: Sequelize.INTEGER,
-      allowNull: true
+      allowNull: true,
     },
     calories: {
       type: Sequelize.INTEGER,
-      allowNull: true
+      allowNull: true,
     },
     bodyfat: {
       type: Sequelize.FLOAT,
-      allowNull: true
-    }
-    
-    
+      allowNull: true,
+    },
   });
 
   return User;

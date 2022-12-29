@@ -6,12 +6,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth} from 'firebase/auth'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBs7krnjDAlw4IaWqv1if3qDmhVHtQ7UDI",
-  authDomain: "jacked-oasrcode.firebaseapp.com",
-  projectId: "jacked-oasrcode",
-  storageBucket: "jacked-oasrcode.appspot.com",
-  messagingSenderId: "635109621053",
-  appId: "1:635109621053:web:c348c455f6e270960f1954"
+  apiKey: import.meta.env.VITE_JACKED_API_KEY,
+  authDomain: import.meta.env.VITE_JACKED_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_JACKED_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_JACKED_STORAGE_BUCKED,
+  messagingSenderId: import.meta.env.VITE_ACKED_MESSAGING__SENDERID,
+  appId: import.meta.env.VITE_JACKED_APP_ID
 };
 
 // Initialize Firebase

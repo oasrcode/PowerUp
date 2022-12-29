@@ -34,7 +34,7 @@ export function Profile() {
   async function getUser() {
     var config = {
       method: "get",
-      url: "http://localhost:8080/api/users/" + user.email,
+      url: "http://localhost:8080/api/users/" + user.uid,
       headers: {
         "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
         "Content-Type": "application/json",
@@ -56,7 +56,7 @@ export function Profile() {
 
     var config = {
       method: "put",
-      url: "http://localhost:8080/api/users/" + user.email,
+      url: "http://localhost:8080/api/users/" + user.uid,
       headers: {
         "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
         "Content-Type": "application/json",

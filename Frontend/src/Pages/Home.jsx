@@ -1,7 +1,5 @@
-import { useEffect } from "react";
 import { BsPersonCircle, BsGithub } from "react-icons/bs";
-import { Outlet, useNavigate } from "react-router-dom";
-import { NavBar } from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 import { UserAuth } from "../Context/AuthContext";
 
 export function Home() {
@@ -11,10 +9,11 @@ export function Home() {
   async function HandleLogOut() {
     await SignOut();
   }
+  console.log(user);
 
   return (
     <div className="flex flex-col max-w-full h-screen bg-home-bg bg-no-repeat bg-cover bg-center bg-fixed  justify-between ">
-      <header className="sticky top-0 z-10 flex flex-row justify-between items-center h-20 max-w-full px-4 tracking-wide cursor-pointer bg-neutral-900">
+      <header className="sticky top-0 z-10 flex flex-row justify-between items-center h-20 max-w-full px-4 tracking-wide cursor-pointer bg-neutral-900 border-b-8 border-red-700">
         <h1
           className="text-4xl font-bold font-serif  text-white shadow-black red-900 drop-shadow-md lg:ml-10"
           onClick={() => navigate("/")}
@@ -24,11 +23,13 @@ export function Home() {
 
         <div className="flex flex-row space-x-4 items-center cursor-pointer lg:mr-10">
           <button
-            className="hidden sm:block sm:text-lg text-white font-serif px-8 py-2 hover:opacity-60"
+            className="flex sm:text-lg text-white font-serif px-8 py-2 hover:opacity-60 gap-2"
             onClick={user ? HandleLogOut : () => navigate("/signin")}
           >
-            {user ? "Cerrar Sesión" : "Iniciar Sesión"}
-            <BsPersonCircle className=" sm:hidden block text-white" size={30} />
+            <BsPersonCircle className="flex text-white" size={30} />
+            <p className="hidden md:block">
+              {user ? "Cerrar Sesión" : "Iniciar Sesión"}
+            </p>
           </button>
         </div>
       </header>
@@ -41,7 +42,7 @@ export function Home() {
             Frase segunda
           </h2>
           <button
-            className="mt-10 px-6 py-4 bg-red-700 text-gray-900  rounded-sm font-mono capitalize text-2xl font-bold shadow-md shadow-gray-900 hover:bg-slate-200"
+            className="mt-10 px-6 py-4 bg-red-700 text-gray-900  rounded-md font-serif capitalize text-2xl font-bold shadow-md shadow-gray-900 hover:translate-y-[0.5px] hover:bg-slate-200 hover:text-red-700"
             onClick={() => navigate("/signup")}
           >
             Comenzar
@@ -52,8 +53,6 @@ export function Home() {
         <BsGithub className="text-gray-50" size={30} />
         <p className="font-mono font-semibold text-gray-50">oasrcode</p>
       </div>
-      {/* <NavBar/> */}
-      {/* <Outlet/> */}
     </div>
   );
 }
