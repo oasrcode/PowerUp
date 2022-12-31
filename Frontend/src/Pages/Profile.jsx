@@ -1,76 +1,38 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { AiOutlineSave, AiOutlineEdit } from "react-icons/ai";
-import axios from "axios";
-import { UserAuth } from "../Context/AuthContext";
-
+import { getUser } from "../Service/User/getUser";
+import { putUser } from "../Service/User/putUser";
 export function Profile() {
   const [enable, setEnable] = useState(true); //false to activate
-  const [userData, setUserData] = useState({});
+
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
-  const [weight, setweight] = useState(0);
-  const [height, setheight] = useState(0);
+  const [weight, setweight] = useState("");
+  const [height, setheight] = useState("");
 
-  const { user } = UserAuth();
+  const { data, loaded } = getUser();
+  const putData = putUser();
 
-  useEffect(() => {
-    if (user.accessToken) {
-      getUser()
-        .then((res) => {
-          setUserData(res.data);
-          setName(res.data.name);
-          setDate(res.data.date);
-          setweight(res.data.weight);
-          setheight(res.data.height)
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-    }
-  }, [user]);
-
-  async function getUser() {
-    var config = {
-      method: "get",
-      url: "http://localhost:8080/api/users/" + user.uid,
-      headers: {
-        "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-        "Content-Type": "application/json",
-        AuthToken: user.accessToken,
-      },
-    };
-    return axios(config);
+  function fillInputs() {
+    setName(data?.name);
+    setDate(data?.date);
+    setweight(data?.weight);
+    setheight(data?.height);
   }
+  useEffect(() => {
+    fillInputs();
+  }, [data]);
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const data = {};
-    data.name = name;
-    data.date = date;
-    data.weight = weight;
-    data.height = height;
-  
+    const userData = {};
+    userData.name = name;
+    userData.date = date;
+    userData.weight = weight;
+    userData.height = height;
 
-    var config = {
-      method: "put",
-      url: "http://localhost:8080/api/users/" + user.uid,
-      headers: {
-        "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-        "Content-Type": "application/json",
-        AuthToken: user.accessToken,
-      },
-      data: data,
-    };
-    axios(config)
-      .then(function (response) {
-      
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    putData(userData);
 
     setEnable(true);
   }
@@ -88,7 +50,7 @@ export function Profile() {
               id="name"
               className="p-3 rounded-md w-full border-2 border-red-700 text-gray-900 disabled:text-gray-400 disabled:bg-slate-100 disabled:border-gray-400 disabled:border-2"
               type={"text"}
-              value={name}
+              value={name || ""}
               placeholder={"nombre de usuario"}
               onChange={() => setName(event.target.value)}
               disabled={enable}
@@ -104,7 +66,7 @@ export function Profile() {
               id="date"
               className="p-3 rounded-md w-full border-2 border-red-700 text-gray-900 disabled:text-gray-400 disabled:bg-slate-100 disabled:border-gray-400 disabled:border-2"
               type={"date"}
-              value={date}
+              value={date || ""}
               onChange={() => setDate(event.target.value)}
               disabled={enable}
               required
@@ -120,7 +82,7 @@ export function Profile() {
               className="p-3 rounded-md w-full border-2 border-red-700 text-gray-900 disabled:text-gray-400 disabled:bg-slate-100 disabled:border-gray-400 disabled:border-2"
               type={"number"}
               placeholder="peso en kg"
-              value={weight}
+              value={weight || ""}
               onChange={() => setweight(event.target.value)}
               disabled={enable}
               required
@@ -136,7 +98,7 @@ export function Profile() {
               className="p-3 rounded-md w-full border-2 border-red-700 text-gray-900 disabled:text-gray-400 disabled:bg-slate-100 disabled:border-gray-400 disabled:border-2"
               type={"number"}
               placeholder="altura en cm"
-              value={height}
+              value={height || ""}
               onChange={() => setheight(event.target.value)}
               disabled={enable}
               required

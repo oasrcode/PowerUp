@@ -1,46 +1,31 @@
 import { useState } from "react";
 import { UserAuth } from "../Context/AuthContext";
-import axios from "axios";
+
 import { useNavigate } from "react-router-dom";
+import { postUser } from "../Service/User/postUser";
 export function ModalSignUp({ prop }) {
   const [date, setDate] = useState("");
   const [weight, setweight] = useState(0);
   const [height, setheight] = useState(0);
   const { user } = UserAuth();
-  const [error, setError] = useState("");
+
   const navigate = useNavigate();
 
-  async function createUserinDB() {
-    const newUser = prop;
-    newUser.firebase_id = user?.uid;
-    newUser.date = date;
-    newUser.weight = weight;
-    newUser.height = height;
-
-    console.log(newUser)
-
-    var config = {
-      method: "post",
-      url: "http://localhost:8080/api/users/",
-      headers: {
-        "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-        "Content-Type": "application/json",
-      },
-      data: prop,
-    };
-
-    axios(config).catch(function (err) {
-      setError(err.message);
-    });
-  }
+  const postData = postUser();
 
   async function HandleSummit(e) {
     e.preventDefault();
-
-    if (user) {
-      createUserinDB().then(()=>{
-        navigate("/dashboard/")
-      });
+    if (user.accessToken) {
+      const newUser = {};
+      newUser.firebase_id = user?.uid;
+      newUser.date = date;
+      newUser.weight = weight;
+      newUser.height = height;
+      newUser.name = prop.name;
+      newUser.email = prop.email;
+      console.log(newUser);
+      postData(newUser);
+      navigate("/");
     }
   }
 
@@ -49,12 +34,6 @@ export function ModalSignUp({ prop }) {
       <p className="text-center font-bold text-2xl text-white lg:text-black">
         Añade tu información personal
       </p>
-
-      {error ? (
-        <div className="flex w-full h-14 bg-red-300 items-center px-4 border-2 border-red-800 font-semibold">
-          <p className="text-red-700 z-10 float">{error}</p>
-        </div>
-      ) : null}
 
       <form onSubmit={HandleSummit}>
         <div className="flex flex-col space-y-3 w-1/2 mx-5">

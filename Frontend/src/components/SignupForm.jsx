@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { UserAuth } from "../Context/AuthContext";
-import axios from "axios";
 import { ModalSignUp } from "./ModalSignUp";
 export function SignupForm() {
   const [name, setName] = useState();
@@ -28,6 +27,7 @@ export function SignupForm() {
       setError(err.message);
     }
   }
+
   return (
     <>
       {modal ? (

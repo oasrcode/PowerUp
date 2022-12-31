@@ -3,6 +3,7 @@ import axios from "axios";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin2Line } from "react-icons/ri";
 import { UserAuth } from "../Context/AuthContext";
+import { formatDate } from "../tools/formatDate";
 export function HistorialLifts({ data }) {
   const { user } = UserAuth();
   const [weight, setWeight] = useState();
@@ -86,7 +87,7 @@ export function HistorialLifts({ data }) {
                     }}
                   ></input>
                 </td>
-                <td className="border"> {p.date}</td>
+                <td className="border">{formatDate(p.date)}</td>
                 <td className="border">
                   <div className="flex items-center justify-evenly lg:space-x-10">
                     <button

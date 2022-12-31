@@ -15,8 +15,8 @@ export function LiftsDisplayGraphs({ setExercise_ID, exercise_id, data }) {
         <button
           className={
             bench
-              ? "text-xs px-4 py-2 my-1  bg-red-700 text-neutral-50 rounded-md text-center font-semibold font-serif hover:opacity-60"
-              : "text-xs px-4 py-2 my-1 bg-neutral-50 text-neutral-900 rounded-md text-center font-semibold font-serif hover:opacity-60"
+              ? "text-xs px-4 py-2 my-1 2xl:text-base 2xl:px-10 2xl:py-4 bg-red-700 text-neutral-50 rounded-md text-center font-semibold font-serif hover:opacity-60"
+              : "text-xs px-4 py-2 my-1 2xl:text-base 2xl:px-10 2xl:py-4 bg-neutral-50 text-neutral-900 rounded-md text-center font-semibold font-serif hover:opacity-60"
           }
           onClick={() => {
             setBench(!bench),
@@ -31,8 +31,8 @@ export function LiftsDisplayGraphs({ setExercise_ID, exercise_id, data }) {
         <button
           className={
             squat
-              ? "text-xs px-4 py-2 my-1 bg-sky-700 text-neutral-50 rounded-md text-center font-semibold font-serif hover:opacity-60"
-              : "text-xs px-4 py-2 my-1 bg-neutral-50 text-neutral-900 rounded-md text-center font-semibold font-serif hover:opacity-60"
+              ? "text-xs px-4 py-2 my-1 2xl:text-base 2xl:px-10 2xl:py-4  bg-sky-700 text-neutral-50 rounded-md text-center font-semibold font-serif hover:opacity-60"
+              : "text-xs px-4 py-2 my-1 2xl:text-base 2xl:px-10 2xl:py-4 bg-neutral-50 text-neutral-900 rounded-md text-center font-semibold font-serif hover:opacity-60"
           }
           onClick={() => {
             setSquat(!squat),
@@ -47,8 +47,8 @@ export function LiftsDisplayGraphs({ setExercise_ID, exercise_id, data }) {
         <button
           className={
             deadlift
-              ? "text-xs px-4 py-2 my-1 bg-emerald-700 text-neutral-50 rounded-md text-center font-semibold font-serif hover:opacity-60"
-              : "text-xs px-4 py-2 my-1 bg-neutral-50 text-neutral-900 rounded-md text-center font-semibold font-serif hover:opacity-60"
+              ? "text-xs px-4 py-2 my-1 2xl:text-base 2xl:px-10 2xl:py-4 bg-emerald-700 text-neutral-50 rounded-md text-center font-semibold font-serif hover:opacity-60"
+              : "text-xs px-4 py-2 my-1 2xl:text-base 2xl:px-10 2xl:py-4 bg-neutral-50 text-neutral-900 rounded-md text-center font-semibold font-serif hover:opacity-60"
           }
           onClick={() => {
             setDeadlift(!deadlift),
