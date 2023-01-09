@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useEffect } from "react";
 import {
   Radar,
   ResponsiveContainer,
@@ -9,25 +11,24 @@ import {
   Legend,
 } from "recharts";
 
-export function UseStatsChart({benchPress,squat,deadlift}) {
+export function UseStatsChart({lifts}) {
 
 
-  let benchWeight = benchPress ? benchPress : 0;
-  let squatWeight = squat ? squat : 0;
-   let deadliftWeight = deadlift ? deadlift : 0;
   
+ 
+   
   const data = [
     {
       ejercicio: 'Press de banca',
-      peso: benchWeight,
+      peso: lifts?.benchPress[0].maxWeight || 0 ,
     },
     {
       ejercicio: 'Sentadilla ',
-      peso: squatWeight,
+      peso:lifts?.squat[0].maxWeight || 0  ,
     },
     {
       ejercicio: 'Peso muerto',
-      peso: deadliftWeight,
+      peso: lifts?.deadlift[0].maxWeight || 0  ,
     }
   ];
 

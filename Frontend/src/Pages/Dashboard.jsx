@@ -14,33 +14,31 @@ export function DashBoard() {
 
   const navigate = useNavigate();
 
-  // const [nav, setNav] = useState(false);
-
-  // const handleNav = () => {
-  //   setNav(!nav);
-  // };
-
   return (
     <div className="flex flex-col lg:flex-row w-full max-w-full h-screen bg-neutral-300">
       <div className="hidden lg:flex flex-col w-96 h-screen bg-neutral-900 shadow-lg shadow-black">
         <div className="flex flex-col items-center gap-10">
           <h1
             className="text-4xl font-bold font-serif  text-white shadow-black drop-shadow-md lg:ml-10 pt-14 cursor-pointer"
-            onClick={() => {navigate("/dashboard/")}}
+            onClick={() => {
+              navigate("/dashboard/"), setPage("dashboard");
+            }}
           >
             Power<span className="text-red-700 font-bold font-serif">Up</span>
           </h1>
 
           <div className=" flex flex-col space-y-14 w-full">
             <button
-             className={
-              page == "dashboard"
-                ? "flex flex-row items-center justify-center gap-4 text-neutral-900  font-serif text-lg font-bold border-b-4 py-2 hover:text-neutral-900 bg-neutral-50 hover:border-b-4 border-red-700"
-                : "flex flex-row items-center justify-center gap-4 text-neutral-50  font-serif text-lg font-bold  border-b-4 py-2 border-neutral-900  hover:bg-neutral-700"
-            }
-              // onClick={() => navigate("/dashboard/")}
+              className={
+                page == "dashboard"
+                  ? "flex flex-row items-center justify-center gap-4 text-neutral-900  font-serif text-lg font-bold border-b-4 py-2 hover:text-neutral-900 bg-neutral-50 hover:border-b-4 border-red-700"
+                  : "flex flex-row items-center justify-center gap-4 text-neutral-50  font-serif text-lg font-bold  border-b-4 py-2 border-neutral-900  hover:bg-neutral-700"
+              }
+              s
               onClick={() => {
-                navigate("/dashboard/"), setPage("dashboard"),setRelease(false)
+                navigate("/dashboard/"),
+                  setPage("dashboard"),
+                  setRelease(false);
               }}
             >
               <CgHome size={20} /> Dashboard{" "}
@@ -52,7 +50,7 @@ export function DashBoard() {
                   : "flex flex-row items-center justify-center gap-4 text-neutral-50  font-serif text-lg font-bold  border-b-4 py-2 border-neutral-900  hover:bg-neutral-700"
               }
               onClick={() => {
-                navigate("lifts"), setPage("lifts"),setRelease(false)
+                navigate("lifts"), setPage("lifts"), setRelease(false);
               }}
             >
               <GiWeightLiftingUp size={20} /> Levantamientos{" "}
@@ -96,22 +94,26 @@ export function DashBoard() {
         >
           <button
             className="w-11/12 md:w-1/2 self-center text-white text-xl bg-red-700 rounded-md py-2 hover:opacity-60"
-            onClick={() => {navigate("/dashboard/"),setRelease(false)}}
+            onClick={() => {
+              navigate("/dashboard/"), setRelease(false);
+            }}
           >
             {" "}
             Dashboard{" "}
           </button>
           <button
-             className="w-11/12 md:w-1/2 self-center text-white text-xl bg-red-700 rounded-md py-2 hover:opacity-60"
-            onClick={() => {navigate("lifts"),setRelease(false)}}
+            className="w-11/12 md:w-1/2 self-center text-white text-xl bg-red-700 rounded-md py-2 hover:opacity-60"
+            onClick={() => {
+              navigate("lifts"), setRelease(false);
+            }}
           >
             {" "}
             Levantamientos{" "}
           </button>
 
           <button
-               className="w-11/12 md:w-1/2 self-center text-white text-xl bg-red-700 rounded-md py-2 hover:opacity-60"
-             onClick={() => SignOut()}
+            className="w-11/12 md:w-1/2 self-center text-white text-xl bg-red-700 rounded-md py-2 hover:opacity-60"
+            onClick={() => SignOut()}
           >
             {" "}
             Salir{" "}

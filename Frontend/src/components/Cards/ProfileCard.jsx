@@ -7,7 +7,7 @@ import { formatDate } from "../../tools/formatDate";
 import { UseStatsChart } from "../Charts/UserStatsChart";
 
 
-export function ProfileCard({userData,benchPress,squat,deadlift}) {
+export function ProfileCard({userData,lifts}) {
   const navigate = useNavigate();
   
   return (
@@ -57,7 +57,7 @@ export function ProfileCard({userData,benchPress,squat,deadlift}) {
         </div>
         <div className="flex h-72    bg-neutral-900 md:rounded-b-md">
           
-          <UseStatsChart benchPress={benchPress} squat={squat} deadlift={deadlift}/>
+          <UseStatsChart lifts={lifts}/>
          
         
         </div>

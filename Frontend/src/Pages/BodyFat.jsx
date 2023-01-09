@@ -6,11 +6,11 @@ import { UserAuth } from "../Context/AuthContext";
 import { BodyFatCalculator } from "../tools/bodyFatCalculator";
 export function BodyFat() {
   const [gender, setGender] = useState();
-  const [age, setAge] = useState();
-  const [height, setHeight] = useState();
-  const [neck, setNeck] = useState();
-  const [waist, setWaist] = useState();
-  const [hip, setHip] = useState();
+  const [age, setAge] = useState(0);
+  const [height, setHeight] = useState(0);
+  const [neck, setNeck] = useState(0);
+  const [waist, setWaist] = useState(0);
+  const [hip, setHip] = useState(0);
   const [bodyFat, setBodyfat] = useState();
 
   const [isWoman, setIswoman] = useState();

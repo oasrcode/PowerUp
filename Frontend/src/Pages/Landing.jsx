@@ -6,134 +6,15 @@ import { BodyFat } from "../components/Cards/BodyFatCard";
 import { BMICard } from "../components/Cards/BMICard";
 import { ProfileCard } from "../components/Cards/ProfileCard";
 import { getUser } from "../Service/User/getUser";
-
+import { getMaxLifts } from "../Service/User_Logs/getMaxLifts";
+import { useEffect } from "react";
 
 export function Landing() {
-  const { user } = UserAuth();
-  const [userData, setUserData] = useState();
-  const [benchPress, setBenchPress] = useState();
-  const [deadlift, setDeadLift] = useState();
-  const [squat, setSquat] = useState();
-  const [loading, setLoading] = useState(true);
+  const { data, error, loaded } = getUser();
+  const { lifts } = getMaxLifts();
 
-  const {data,error,loaded,getData} = getUser();
-
-
-  // const hok = useMemo(()=>{
-  //   return data
-  // },[data])
-
-
-
-  // useEffect(() => {
-  //   if (user.accessToken) {
-  //     let firebase_id = user.uid;
-  //     let token = user.accessToken;
-      
-  //     // getUser(firebase_id, token)
-  //     //   .then((res) => {
-  //     //     setUserData(res.data);
-  //     //   })
-  //     //   .catch((err) => {
-  //     //     console.log(err.response.data);
-  //     //   });
-
-  //     getData()
-     
-      
-
-     
-
-
-
-  //     let exercise_id = 1;
-
-  //     getMaxLift(exercise_id, firebase_id, token)
-  //       .then((res) => {
-         
-  //         setBenchPress(res.data[0].maxWeight)
-
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-
-  //       exercise_id = 2;
-  //       getMaxLift(exercise_id, firebase_id, token)
-  //       .then((res) => {
-  //         setSquat(res.data[0].maxWeight)
-
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-
-  //       exercise_id = 3;
-
-  //       getMaxLift(exercise_id, firebase_id, token)
-  //       .then((res) => {
-  //         setDeadLift(res.data[0].maxWeight)
-
-         
-
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-      
-      
-  //   }
-  // }, [user]);
-
-  // async function getUser(firebase_id, token) {
-  //   var config = {
-  //     method: "get",
-  //     url: "http://localhost:8080/api/users/" + firebase_id,
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-  //       "Content-Type": "application/json",
-  //       AuthToken: token,
-  //     },
-  //   };
-  //   return axios(config);
-  // }
-
-  async function getMaxLift(exercise_id, firebase_id, token) {
-    var config = {
-      method: "get",
-      url:
-        "http://localhost:8080/api/user_logs/max/" +
-        exercise_id +
-        "/" +
-        firebase_id,
-      headers: {
-        "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-        "Content-Type": "application/json",
-        AuthToken: token,
-      },
-    };
-    return axios(config);
-  }
-
-  // async function getAllLiftByExercise(exercise_id, firebase_id, token) {
-  //   var config = {
-  //     method: "get",
-  //     url:
-  //       "http://localhost:8080/api/user_logs/" +
-  //       exercise_id +
-  //       "/" +
-  //       firebase_id,
-  //     headers: {
-  //       "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-  //       "Content-Type": "application/json",
-  //       AuthToken: token,
-  //     },
-  //   };
-  //   return axios(config);
-  // }
-
-  const tiempoTranscurrido = Date.now();
-  const hoy = new Date(tiempoTranscurrido);
+  const time = Date.now();
+  const today = new Date(time);
 
   return (
     <div className="w-full h-full overflow-auto">
@@ -149,14 +30,14 @@ export function Landing() {
 
         <div>
           <p className="hidden md:flex md:pr-10 2xl:pr-44 text-red-700 font-semibold">
-            {hoy.toDateString()}
+            {today.toDateString()}
           </p>
         </div>
       </div>
 
       <div className="flex flex-col xl:w-full xl:h-3/4 2xl:w-10/12 2xl:mx-auto 2xl:h-3/4 md:flex-row md:pl-10 xl:pl-5 ">
         <div className="flex flex-col md:w-full md:my-auto md:mx-auto">
-          <ProfileCard userData={data} benchPress={benchPress} squat={squat} deadlift={deadlift} />
+          <ProfileCard userData={data} lifts={lifts} />
         </div>
 
         <div className="flex flex-col 2xl:pl-20 md:px-5  xl:px-4 w-[90%] mx-auto pt-10 md:pt-0  pb-10 md:pb-0 justify-between  gap-4 2xl:gap-0">

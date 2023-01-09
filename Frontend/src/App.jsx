@@ -17,6 +17,7 @@ function App() {
       <Routes>
         <Route
           path="/"
+          exact="true"
           element={
             <RedirectToDashboard>
               <Home />

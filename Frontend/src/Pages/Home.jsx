@@ -9,7 +9,7 @@ export function Home() {
   async function HandleLogOut() {
     await SignOut();
   }
-  console.log(user);
+ 
 
   return (
     <div className="flex flex-col max-w-full h-screen bg-home-bg bg-no-repeat bg-cover bg-center bg-fixed  justify-between ">
@@ -36,10 +36,10 @@ export function Home() {
 
       <div className="flex flex-col w-full h-[85%] items-center justify-center">
         <div className="text-center">
-          <h2 className="text-white text-4xl font-bold">Frase primero</h2>
+          <h2 className="text-white text-4xl font-bold">Mide y Controla tu </h2>
           <h2 className="text-red-700 font-extrabold border-dashed border-white text-7xl">
             {" "}
-            Frase segunda
+            Potencial
           </h2>
           <button
             className="mt-10 px-6 py-4 bg-red-700 text-gray-900  rounded-md font-serif capitalize text-2xl font-bold shadow-md shadow-gray-900 hover:translate-y-[0.5px] hover:bg-slate-200 hover:text-red-700"
