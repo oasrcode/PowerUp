@@ -1,2 +1,2 @@
-# Shredded
- Gym app created with react 
+# PowerUp
+ Powerlifting track app
