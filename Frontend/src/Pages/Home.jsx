@@ -36,8 +36,8 @@ export function Home() {
 
       <div className="flex flex-col w-full h-[85%] items-center justify-center">
         <div className="text-center">
-          <h2 className="text-white text-4xl font-bold">Mide y Controla tu </h2>
-          <h2 className="text-red-700 font-extrabold border-dashed border-white text-7xl">
+          <h2 className="text-white text-4xl font-bold font-serif">Mide y Controla tu </h2>
+          <h2 className="text-red-700 font-extrabold drop-shadow-[0_4px_4px_rgba(0,0,0,1)] text-7xl font-serif">
             {" "}
             Potencial
           </h2>
