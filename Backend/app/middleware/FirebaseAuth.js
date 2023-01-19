@@ -1,9 +1,9 @@
 var admin = require("firebase-admin");
 require('dotenv').config();
-var serviceAccount = require("../config/jacked-oasrcode-firebase-adminsdk-ml404-85dbf96ef9.json");
+
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+ 
   type: process.env.FIREBASE_APP_TYPE,
   project_id: process.env.FIREBASE_APP_PRROJECT_ID,
   private_key_id: process.env.FIREBASE_APP_PRIVATE_KEY_ID,
