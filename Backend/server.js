@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const auth = require("./app/middleware/FirebaseAuth");
+const dotenv = require("dotenv").config()
+
 
 const corsConf = {
   origin: "*",

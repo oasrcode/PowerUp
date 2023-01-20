@@ -16,6 +16,10 @@ export function Landing() {
   const time = Date.now();
   const today = new Date(time);
 
+  useEffect(()=>{
+
+  },[data])
+
   return (
     <div className="w-full h-full overflow-auto">
       <div className="flex md:flex-row flex-col  md:pl-14 md:pt-10 xl:pt-5 md:pb-20 md:space-x-4 items-center justify-between">

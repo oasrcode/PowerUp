@@ -1,11 +1,11 @@
-require('dotenv').config();
-module.exports = {
 
+
+module.exports = {
   HOST: process.env.API_HOST,
   USER: process.env.API_USER,
   PASSWORD: process.env.API_PASSWORD,
   DB: process.env.API_DB,
-  dialect: process.env.API_dialect,
+  dialect: "mysql",
   pool: {
     max: 5,
     min: 0,
@@ -13,3 +13,4 @@ module.exports = {
     idle: 10000,
   },
 };
+
