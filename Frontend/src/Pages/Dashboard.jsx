@@ -5,8 +5,9 @@ import { GiWeightLiftingUp } from "react-icons/gi";
 import { ImExit } from "react-icons/im";
 import { useState } from "react";
 import { UserAuth } from "../Context/AuthContext";
+import { Loading } from "../components/Loading";
 export function DashBoard() {
-  const { SignOut } = UserAuth();
+  const { SignOut, user } = UserAuth();
 
   const [release, setRelease] = useState(false);
 

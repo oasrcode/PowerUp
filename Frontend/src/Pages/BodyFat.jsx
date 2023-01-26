@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { FcBusinesswoman, FcBusinessman } from "react-icons/fc";
 import { AiOutlineSave } from "react-icons/ai";
-import axios from "axios";
-import { UserAuth } from "../Context/AuthContext";
+import { putUser } from "../Service/User/putUser";
 import { BodyFatCalculator } from "../tools/bodyFatCalculator";
+import { MessengeAlert } from "../components/MessengeAler";
 export function BodyFat() {
   const [gender, setGender] = useState();
   const [age, setAge] = useState(0);
@@ -16,12 +16,13 @@ export function BodyFat() {
   const [isWoman, setIswoman] = useState();
   const [result, setResult] = useState(false);
 
-  const { user } = UserAuth();
-
+  const putData = putUser();
+  const [messengeSent, setMessengeSent] = useState(false);
+  const [error, setError] = useState();
   function HandleSummit(e) {
     e.preventDefault();
-   
-    setBodyfat(BodyFatCalculator(waist, neck, height, hip, gender))
+
+    setBodyfat(BodyFatCalculator(waist, neck, height, hip, gender));
     setResult(true);
   }
 
@@ -30,32 +31,17 @@ export function BodyFat() {
 
     data.bodyfat = bodyFat;
 
-    if (user.accessToken) {
-      let firebase_id = user.uid;
-      let token = user.accessToken;
-
-      var config = {
-        method: "put",
-        url: "http://localhost:8080/api/users/" + firebase_id,
-        headers: {
-          "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-          "Content-Type": "application/json",
-          AuthToken: token,
-        },
-        data: data,
-      };
-      axios(config)
-        .then(function (response) {})
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
+    putData(data).catch((err) => {
+      setError(err.message);
+    });
+    setMessengeSent(true);
   }
+
   return (
     <div className="flex flex-col w-full max-w-full h-screen overflow-auto  2xl:pt-24 xl:pt-5 md:pt-10 xl:w-11/12  xl:mx-auto xl:my-auto ">
       <form onSubmit={HandleSummit}>
         <div className=" flex flex-col md:grid  md:grid-cols-2 lg:grid-cols-3 pt-5 md:mx-4 2xl:gap-14 md:gap-10 md:text-center">
-        <div className="col-span-1 flex flex-col items-center justify-between">
+          <div className="col-span-1 flex flex-col items-center justify-between">
             <p className="flex font-bold text-2xl text-gray-700">
               ¿Cuál es tu género?
             </p>
@@ -65,7 +51,7 @@ export function BodyFat() {
             >
               <div className="flex flex-col">
                 <label
-                   className={
+                  className={
                     gender == "male"
                       ? "  bg-sky-100 rounded-xl  border-4 border-blue-600"
                       : " rounded-xl bg-slate-50 border-4 border-neutral-200 opacity-60"
@@ -88,11 +74,11 @@ export function BodyFat() {
 
               <div className="flex flex-col justify-center items-center">
                 <label
-                 className={
-                  gender == "female"
-                    ? " bg-pink-100 rounded-xl  border-4 border-pink-600"
-                    : " rounded-xl border-4 border-neutral-200 bg-slate-50 opacity-60 "
-                }
+                  className={
+                    gender == "female"
+                      ? " bg-pink-100 rounded-xl  border-4 border-pink-600"
+                      : " rounded-xl border-4 border-neutral-200 bg-slate-50 opacity-60 "
+                  }
                   onClick={() => {
                     setGender("female"), setIswoman(true);
                   }}
@@ -212,7 +198,7 @@ export function BodyFat() {
 
           <div className="block col-span-3 pt-10 xl:pt-5">
             {result ? (
-                <div className=" flex flex-col xl:flex-row items-center justify-center md:gap-4  bg-black lg:rounded-3xl xl:w-4/6 2xl:w-3/6 lg:mx-auto">
+              <div className=" flex flex-col xl:flex-row items-center justify-center md:gap-4  bg-black lg:rounded-3xl xl:w-4/6 2xl:w-3/6 lg:mx-auto">
                 <p className="font-bold text-lg md:text-xl text-neutral-50 py-4 text-center">
                   Tu porcentaje de grasa corporal es de {bodyFat} %
                 </p>
@@ -229,6 +215,12 @@ export function BodyFat() {
           </div>
         </div>
       </form>
+      {messengeSent ? (
+        <MessengeAlert
+          message={error ? error : "Datos guardados"}
+          prop={setMessengeSent}
+        />
+      ) : null}
     </div>
   );
 }

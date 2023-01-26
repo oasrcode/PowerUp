@@ -2,67 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBin2Line } from "react-icons/ri";
-import { UserAuth } from "../Context/AuthContext";
 import { formatDate } from "../tools/formatDate";
 import { putUserLog } from "../Service/User_Logs/putUserLog";
 import { deleteUserLog } from "../Service/User_Logs/deleteUserlog";
-export function HistorialLifts({ data, setReload }) {
-  const { user } = UserAuth();
+export function HistorialLifts({ data, setReload,prop }) {
   const [weight, setWeight] = useState();
 
   const putData = putUserLog();
-
-  // async function editLift(log_id) {
-  //   if (user.accessToken) {
-  //     let token = user.accessToken;
-
-  //     const data = {
-  //       weight: weight,
-  //     };
-
-  //     var config = {
-  //       method: "put",
-  //       url: "http://localhost:8080/api/user_logs/" + log_id,
-  //       headers: {
-  //         "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-  //         "Content-Type": "application/json",
-  //         AuthToken: token,
-  //       },
-  //       data: data,
-  //     };
-
-  //     axios(config)
-  //       .then(function (response) {
-  //         console.log(response);
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //       });
-  //   }
-  // }
-
-  // async function deleteLift(log_id) {
-  //   if (user.accessToken) {
-  //     let token = user.accessToken;
-
-  //     var config = {
-  //       method: "delete",
-  //       url: "http://localhost:8080/api/user_logs/" + log_id,
-  //       headers: {
-  //         "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-  //         "Content-Type": "application/json",
-  //         AuthToken: token,
-  //       },
-  //     };
-  //     axios(config)
-  //       .then((res) => {
-  //         console.log(res);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   }
-  // }
 
   const deleteData = deleteUserLog();
 
@@ -100,6 +46,7 @@ export function HistorialLifts({ data, setReload }) {
                       onClick={() => {
                         putData(p.log_id, weight);
                         setReload();
+                        prop(true);
                       }}
                     >
                       <BiEdit size={20} />
@@ -108,6 +55,7 @@ export function HistorialLifts({ data, setReload }) {
                       onClick={() => {
                         deleteData(p.log_id);
                         setReload();
+                        prop(true);
                       }}
                     >
                       <RiDeleteBin2Line size={20} />

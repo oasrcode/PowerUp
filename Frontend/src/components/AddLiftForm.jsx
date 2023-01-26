@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { UserAuth } from "../Context/AuthContext";
-import axios from "axios";
 import { postUserLog } from "../Service/User_Logs/postUserLog";
-export function AddLiftForm({ setReload}) {
+export function AddLiftForm({ setReload, prop }) {
   const { user } = UserAuth();
   const [exercise, setExercise] = useState();
   const [weight, setWeight] = useState();
@@ -21,8 +20,9 @@ export function AddLiftForm({ setReload}) {
 
       postData(data);
       setReload();
-    }
 
+      prop(true);
+    }
   }
 
   return (

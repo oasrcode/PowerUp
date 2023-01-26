@@ -1,15 +1,18 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { Loading } from "../components/Loading";
+import { MessengeAlert } from "../components/MessengeAler";
 import { getUser } from "../Service/User/getUser";
 import { putUser } from "../Service/User/putUser";
 export function Profile() {
+  
   const [enable, setEnable] = useState(true); //false to activate
-
+  const [messengeSent, setMessengeSent] = useState(false)
+  const [error,setError] = useState();
   const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [weight, setweight] = useState("");
   const [height, setheight] = useState("");
-
   const { data, loaded } = getUser();
   const putData = putUser();
 
@@ -32,13 +35,15 @@ export function Profile() {
     userData.weight = weight;
     userData.height = height;
 
-    putData(userData);
-
+    putData(userData).catch((err)=>{
+      setError(err)
+    });
+    setMessengeSent(true);
     setEnable(true);
   }
 
-  return (
-    <div className="flex flex-col w-full max-w-full h-full">
+  return ( loaded ?
+    <div className="flex flex-col w-full max-w-full h-full overflow-auto">
       <div className="flex flex-col  w-full h-auto lg:w-2/5 lg:mx-auto my-auto pl-4 pr-10 pb-6 md:w-3/4 md:mx-auto">
         <h2 className="font-semibold text-2xl  text-center ">Mi perfil</h2>
         <form onSubmit={handleSubmit}>
@@ -110,17 +115,18 @@ export function Profile() {
               type="button"
               value="Editar"
               onClick={() => setEnable(false)}
-              className="flex flex-row items-center gap-1 px-6 lg:px-10 py-2 bg-slate-200 text-black rounded-md disabled:bg-slate-800 disabled:text-gray-200"
+              className="flex flex-row items-center gap-1 px-6 lg:px-10 py-2 bg-slate-300 border-2 border-neutral-500 text-black rounded-md disabled:bg-slate-800 disabled:text-gray-200 hover:opacity-60"
             />
             <input
               type="submit"
               value="Guardar"
               disabled={enable}
-              className="bg-red-700 text-white px-4 py-2 rounded-md disabled:opacity-10 disabled:text-gray-50  disabled:bg-slate-900"
+              className="bg-red-700 text-white px-4 py-2 rounded-md disabled:opacity-10 disabled:text-gray-50  disabled:bg-slate-900 hover:opacity-60 hover:translate-y-[0.5px]"
             />
           </div>
         </form>
       </div>
-    </div>
+      {messengeSent?<MessengeAlert prop={setMessengeSent} message={error?error:"Datos guardados"}/>:null}
+    </div>: <Loading/>
   );
 }

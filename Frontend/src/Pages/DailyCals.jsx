@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { FcBusinesswoman, FcBusinessman } from "react-icons/fc";
-import { UserAuth } from "../Context/AuthContext";
 import { AiOutlineSave } from "react-icons/ai";
-import axios from "axios";
+import { caloriesCalculator } from "../tools/caloriesCalculator";
+import { putUser } from "../Service/User/putUser";
+import { MessengeAlert } from "../components/MessengeAler";
+
 export function DailyCals() {
+
   const [gender, setGender] = useState();
   const [age, setAge] = useState();
   const [weight, setWeight] = useState();
@@ -11,61 +14,24 @@ export function DailyCals() {
   const [activity, setActivity] = useState();
   const [calories, setCalories] = useState();
   const [result, setResult] = useState(false);
-  const [isWoman, setIswoman] = useState();
-
-  const { user } = UserAuth();
-
-  function CalculateCalories() {
-    if (gender == "male") {
-      /*[66 + (13,7 × peso en kg) ] + [ (5 × altura en cm) ? (6,8 × edad)] × Factor actividad */
-      setCalories(
-        Math.round((10 * weight + 6.25 * height - 5 * age + 5) * activity)
-      );
-    }
-
-    if (gender == "female") {
-      /* (10 x peso en kg) + (6.25 × altura en cm) - (5 × edad en años) - 161 */
-      setCalories(
-        Math.round((10 * weight + 6.25 * height - 5 * age - 161) * activity)
-      );
-    }
-  }
+  const [messengeSent, setMessengeSent] = useState(false)
+  const [error,setError] = useState();
+  const putData = putUser();
 
   function HandleSummit(e) {
     e.preventDefault();
-    CalculateCalories();
+    const cals = caloriesCalculator(gender, weight, height, age, activity);
+    setCalories(cals);
     setResult(true);
   }
 
   function postCalories() {
     let data = {};
-
     data.calories = calories;
-
-    if(user.accessToken){
-      let firebase_id = user.uid;
-      let token = user.accessToken;
-
-      var config = {
-        method: "put",
-        url: "http://localhost:8080/api/users/" + firebase_id,
-        headers: {
-          "Access-Control-Allow-Origin": "http://127.0.0.1:8081/",
-          "Content-Type": "application/json",
-          AuthToken: token,
-        },
-        data: data,
-      };
-      axios(config)
-        .then(function (response) {
-          
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }
-
-   
+    putData(data).catch((err)=>{
+      setError(err.message);
+    });
+    setMessengeSent(true)
   }
 
   return (
@@ -82,13 +48,13 @@ export function DailyCals() {
             >
               <div className="flex flex-col">
                 <label
-                   className={
+                  className={
                     gender == "male"
                       ? "  bg-sky-100 rounded-xl  border-4 border-blue-600"
                       : " rounded-xl bg-slate-50 border-4 border-neutral-200 opacity-60"
                   }
                   onClick={() => {
-                    setGender("male"), setIswoman(false);
+                    setGender("male");
                   }}
                 >
                   <FcBusinessman size={100} />
@@ -111,7 +77,7 @@ export function DailyCals() {
                       : " rounded-xl border-4 border-neutral-200 bg-slate-50 opacity-60 "
                   }
                   onClick={() => {
-                    setGender("female"), setIswoman(true);
+                    setGender("female");
                   }}
                 >
                   <FcBusinesswoman size={100} />
@@ -210,14 +176,14 @@ export function DailyCals() {
 
           <div className="block col-span-3 pt-10 xl:pt-5">
             {result ? (
-             <div className=" flex flex-col xl:flex-row items-center justify-center md:gap-4  bg-black lg:rounded-3xl xl:w-4/6 2xl:w-3/6 lg:mx-auto">
-             <p className="font-bold text-lg md:text-xl text-neutral-50 py-4 text-center">
+              <div className=" flex flex-col xl:flex-row items-center justify-center md:gap-4  bg-black lg:rounded-3xl xl:w-4/6 2xl:w-3/6 lg:mx-auto">
+                <p className="font-bold text-lg md:text-xl text-neutral-50 py-4 text-center">
                   Tus calorias diarías son de {calories}.
                 </p>
                 <button
-                   className="flex flex-row  items-center gap-2 mb-4 xl:mb-0    px-8 py-2 rounded-xl bg-red-700 text-white hover:opacity-60"
+                  className="flex flex-row  items-center gap-2 mb-4 xl:mb-0    px-8 py-2 rounded-xl bg-red-700 text-white hover:opacity-60"
                   type={"button"}
-                  onClick={()=>postCalories()}
+                  onClick={() => postCalories()}
                 >
                   Guardar
                   <AiOutlineSave size={30} />
@@ -227,6 +193,7 @@ export function DailyCals() {
           </div>
         </div>
       </form>
+      {messengeSent?<MessengeAlert message={error?error:"Datos guardados"} prop={setMessengeSent}/>:null}
     </div>
   );
 }

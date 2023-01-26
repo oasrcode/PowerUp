@@ -8,6 +8,7 @@ import { ProfileCard } from "../components/Cards/ProfileCard";
 import { getUser } from "../Service/User/getUser";
 import { getMaxLifts } from "../Service/User_Logs/getMaxLifts";
 import { useEffect } from "react";
+import { Loading } from "../components/Loading";
 
 export function Landing() {
   const { data, error, loaded } = getUser();
@@ -16,11 +17,9 @@ export function Landing() {
   const time = Date.now();
   const today = new Date(time);
 
-  useEffect(()=>{
+  
 
-  },[data])
-
-  return (
+  return (loaded?
     <div className="w-full h-full overflow-auto">
       <div className="flex md:flex-row flex-col  md:pl-14 md:pt-10 xl:pt-5 md:pb-20 md:space-x-4 items-center justify-between">
         <div className="flex flex-row 2xl:space-x-5 2xl:mt-10 items-center justify-center">
@@ -50,6 +49,6 @@ export function Landing() {
           <BMICard prop={data} />
         </div>
       </div>
-    </div>
+    </div>:<Loading/>
   );
 }

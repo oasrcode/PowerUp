@@ -7,31 +7,16 @@ import { Lifts } from "./Pages/Lifts";
 import { Profile } from "./Pages/Profile";
 import { BodyFat } from "./Pages/BodyFat";
 import { DailyCals } from "./Pages/DailyCals";
-import { Protected } from "./Context/Protected";
+import { Protected } from "./Routes/Protected";
 import { Landing } from "./Pages/Landing";
 import { DashBoard } from "./Pages/Dashboard";
-import { RedirectToDashboard } from "./Context/RedirectToDashboard";
+
 function App() {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          exact="true"
-          element={
-            <RedirectToDashboard>
-              <Home />
-            </RedirectToDashboard>
-          }
-        />
-        <Route
-          path="/signin"
-          element={
-            <RedirectToDashboard>
-              <Signin />
-            </RedirectToDashboard>
-          }
-        />
+        <Route path="/" exact="true" element={<Home />} />
+        <Route path="/signin" element={<Signin />} />
         <Route path="/signup" element={<Signup />} />
         <Route
           path="/dashboard"
