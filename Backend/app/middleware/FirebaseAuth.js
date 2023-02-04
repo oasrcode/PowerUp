@@ -1,8 +1,5 @@
 var admin = require("firebase-admin");
 
-
-
-
 admin.initializeApp({
   credential: admin.credential.cert({
     type: process.env.FIREBASE_APP_TYPE,
@@ -31,6 +28,6 @@ exports.checkAuth = async (req, res, next) => {
         res.status(403).send(err);
       });
   } else {
-    res.status(403).send("token no enviado");
+    res.status(403).send("token missed");
   }
 };

@@ -123,7 +123,7 @@ exports.delete = (req, res) => {
         });
       } else {
         res.send({
-          message: `Cannot delete user with user_id=${user_id}`,
+          message: `Cannot delete user_log with user_id=${user_id}`,
         });
       }
     })

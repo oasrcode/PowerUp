@@ -11,25 +11,25 @@ export function AddLiftForm({ setReload, prop }) {
   function HandleSummit(e) {
     e.preventDefault();
 
-    if (user.accessToken) {
-      const data = {};
-      data.exercise_id = exercise;
-      data.firebase_id = user.uid;
-      data.weight = weight;
-      data.date = date;
+    const data = {};
+    data.exercise_id = exercise;
+    data.firebase_id = user.uid;
+    data.weight = weight;
+    data.date = date;
 
-      postData(data);
-      setReload();
 
-      prop(true);
-    }
+
+    postData(data);
+    setReload();
+
+    prop(true);
   }
 
   return (
     <div className="flex flex-col w-auto h-auto md:h-full  bg-neutral-900   shadow-md shadow-neutral-700 rounded-b-md md:items-center md:justify-center">
       <form onSubmit={HandleSummit}>
         <div className="flex flex-row w-full pl-10 pt-4 space-x-12 items-center">
-          <label className="text-neutral-50 text-xl md:text-2xl">
+          <label className="text-neutral-50 text-lg font-bold md:text-2xl">
             Ejercicio
           </label>
           <select
@@ -44,7 +44,7 @@ export function AddLiftForm({ setReload, prop }) {
           </select>
         </div>
         <div className="flex flex-row w-full pl-10 pt-10 space-x-20 items-center">
-          <label className="text-neutral-50 text-xl md:text-2xl">Peso</label>
+          <label className="text-neutral-50 text-lg  font-bold md:text-2xl">Peso</label>
           <input
             type={"number"}
             className="w-24 h-10 text-2xl rounded-lg"
@@ -53,7 +53,7 @@ export function AddLiftForm({ setReload, prop }) {
           ></input>
         </div>
         <div className="flex flex-row w-full pl-10 pt-10 space-x-16 items-center overflow-auto">
-          <label className="text-neutral-50 text-xl md:text-2xl">Fecha</label>
+          <label className="text-neutral-50 text-lg font-bold md:text-2xl">Fecha</label>
           <input
             type={"date"}
             className="w-44 h-10 text-2xl rounded-lg"

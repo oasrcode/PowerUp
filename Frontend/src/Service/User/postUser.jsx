@@ -1,10 +1,13 @@
 import axios from "axios";
+import { useState } from "react";
 import { UserAuth } from "../../Context/AuthContext";
 
 const api_url = import.meta.env.VITE_API_URL;
 
 export function postUser() {
   const { user } = UserAuth();
+  const [error, setError] = useState("")
+  const [loaded, setLoaded] = useState(false);
 
   async function postData(data) {
     if (user.accessToken) {
@@ -19,11 +22,16 @@ export function postUser() {
         },
         data: data,
       };
-      axios(config).catch(function (error) {
-        console.log(error);
-      });
+      axios(config)
+        .catch(function (error) {
+          console.log(error);
+          setError(error)
+        })
+        .finally(() => {
+          setLoaded(true);
+        });
     }
   }
 
-  return postData;
+  return (postData);
 }

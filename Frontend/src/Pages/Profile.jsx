@@ -14,7 +14,7 @@ export function Profile() {
   const [weight, setweight] = useState("");
   const [height, setheight] = useState("");
   const { data, loaded } = getUser();
-  const putData = putUser();
+  const [putData] = putUser();
 
   function fillInputs() {
     setName(data?.name);
@@ -25,6 +25,9 @@ export function Profile() {
   useEffect(() => {
     fillInputs();
   }, [data]);
+
+
+  
 
   function handleSubmit(e) {
     e.preventDefault();

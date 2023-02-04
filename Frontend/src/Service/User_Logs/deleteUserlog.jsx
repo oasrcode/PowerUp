@@ -21,9 +21,6 @@ export function deleteUserLog() {
       };
 
       axios(config)
-        .then((res) => {
-          console.log(res);
-        })
         .catch(function (error) {
           console.log(error);
         });

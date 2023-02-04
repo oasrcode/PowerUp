@@ -1,7 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const dotenv = require("dotenv").config()
+const dotenv = require("dotenv").config();
+const db = require("./app/models");
 
 
 const corsConf = {
@@ -15,7 +16,7 @@ app.use(cors(corsConf));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const db = require("./app/models");
+
 db.sequelize
   .sync()
   .then(() => {

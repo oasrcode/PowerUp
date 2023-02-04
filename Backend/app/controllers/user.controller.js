@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new User
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.email || !req.body.name) {
+  if (!req.body.name) {
     res.status(400).send({
       message: "name or email can not be empty!",
     });
@@ -14,7 +14,6 @@ exports.create = (req, res) => {
   // Create a User
   const user = {
     name: req.body.name,
-    email: req.body.email,
     firebase_id: req.body.firebase_id,
     date: req.body.date,
     weight: req.body.weight,
@@ -72,27 +71,4 @@ exports.update = (req, res) => {
     });
 };
 
-// Delete a Tutorial with the specified id in the request
-// exports.delete = (req, res) => {
-//   const id_firebase = req.params.id_firebase;
 
-//   Users.destroy({
-//     where: { id_firebase: id_firebase }
-//   })
-//     .then(num => {
-//       if (num == 1) {
-//         res.send({
-//           message: "User was deleted successfully!"
-//         });
-//       } else {
-//         res.send({
-//           message: `Cannot delete user with id_firebase=${id_firebase}`
-//         });
-//       }
-//     })
-//     .catch(err => {
-//       res.status(500).send({
-//         message: "Could not delete Tutorial with id=" + id
-//       });
-//     });
-// };

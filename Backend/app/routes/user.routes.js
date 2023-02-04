@@ -10,7 +10,6 @@ module.exports = (app) => {
 
   router.put("/:firebase_id", auth.checkAuth, users.update);
 
-  // router.delete("/:id_firebase", users.delete);
 
   app.use("/api/users", router);
 };

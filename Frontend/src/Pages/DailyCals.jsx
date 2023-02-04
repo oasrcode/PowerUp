@@ -15,8 +15,8 @@ export function DailyCals() {
   const [calories, setCalories] = useState();
   const [result, setResult] = useState(false);
   const [messengeSent, setMessengeSent] = useState(false)
-  const [error,setError] = useState();
-  const putData = putUser();
+
+  const [putData,loaded,error] = putUser();
 
   function HandleSummit(e) {
     e.preventDefault();
@@ -28,9 +28,7 @@ export function DailyCals() {
   function postCalories() {
     let data = {};
     data.calories = calories;
-    putData(data).catch((err)=>{
-      setError(err.message);
-    });
+    putData(data);
     setMessengeSent(true)
   }
 

@@ -36,13 +36,7 @@ db.exercise.hasMany(db.user_logs, {
   allowNull: false,
 });
 
-// db.user_logs.belongsTo(db.users, {
-//   foreignKey: 'firebase_id'
-// });
 
-// db.user_logs.belongsTo(db.exercise, {
-//   foreignKey: 'exercise_id'
-// });
 db.user_logs.belongsTo(db.users, {foreignKey: 'firebase_id'   });
 
 db.user_logs.belongsTo(db.exercise, { foreignKey: 'exercise_id'});

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { UserAuth } from "../Context/AuthContext";
-
 import { useNavigate } from "react-router-dom";
 import { postUser } from "../Service/User/postUser";
+
 export function ModalSignUp({ prop }) {
   const [date, setDate] = useState("");
   const [weight, setweight] = useState(0);
@@ -22,8 +22,7 @@ export function ModalSignUp({ prop }) {
       newUser.weight = weight;
       newUser.height = height;
       newUser.name = prop.name;
-      newUser.email = prop.email;
-      console.log(newUser);
+ 
       postData(newUser);
       navigate("/");
     }

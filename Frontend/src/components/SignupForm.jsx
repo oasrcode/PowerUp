@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { UserAuth } from "../Context/AuthContext";
 import { ModalSignUp } from "./ModalSignUp";
+
 export function SignupForm() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const { createUser, user } = UserAuth();
+  const { createUser} = UserAuth();
   const [error, setError] = useState("");
   const [modal, setModal] = useState(false);
-  const [newUser, setNewUser] = useState();
+  const [user, setUser] = useState();
 
 
 
@@ -17,10 +18,10 @@ export function SignupForm() {
     try {
       await createUser(name, email, password).then(() => {
         setModal(true);
-        const newUser = {};
-        newUser.name = name;
-        newUser.email = email;
-        setNewUser(newUser);
+
+        const userData = {};
+        userData.name = name;
+        setUser(userData);
       });
     } catch (err) {
       console.log(err);
@@ -31,7 +32,7 @@ export function SignupForm() {
   return (
     <>
       {modal ? (
-        <ModalSignUp prop={newUser} />
+        <ModalSignUp prop={user} />
       ) : (
         <div className="flex flex-col w-full h-full justify-evenly">
           <p className="text-center font-bold text-2xl text-white lg:text-black">

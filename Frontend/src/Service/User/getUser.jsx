@@ -12,9 +12,6 @@ export function getUser() {
 
   useEffect(() => {
    getData();
-
-  
-
   }, [user]);
 
 

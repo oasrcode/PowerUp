@@ -4,6 +4,7 @@ import { AiOutlineSave } from "react-icons/ai";
 import { putUser } from "../Service/User/putUser";
 import { BodyFatCalculator } from "../tools/bodyFatCalculator";
 import { MessengeAlert } from "../components/MessengeAler";
+
 export function BodyFat() {
   const [gender, setGender] = useState();
   const [age, setAge] = useState(0);
@@ -16,24 +17,20 @@ export function BodyFat() {
   const [isWoman, setIswoman] = useState();
   const [result, setResult] = useState(false);
 
-  const putData = putUser();
+  const [putData,loaded,error] = putUser();
+
   const [messengeSent, setMessengeSent] = useState(false);
-  const [error, setError] = useState();
+  
   function HandleSummit(e) {
     e.preventDefault();
-
     setBodyfat(BodyFatCalculator(waist, neck, height, hip, gender));
     setResult(true);
   }
 
   function postBodyFat() {
     const data = {};
-
     data.bodyfat = bodyFat;
-
-    putData(data).catch((err) => {
-      setError(err.message);
-    });
+    putData(data);
     setMessengeSent(true);
   }
 

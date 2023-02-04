@@ -27,10 +27,7 @@ export function putUserLog() {
         data: data,
       };
 
-      axios(config).then((res)=>{
-        console.log(res)
-      })
-        .catch(function (error) {
+      axios(config).catch(function (error) {
           console.log(error);
         });
     }
