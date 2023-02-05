@@ -32,7 +32,8 @@ db.sequelize
 
 require("./app/routes/user.routes.js")(app);
 require("./app/routes/user_logs.routes.js")(app);
-const PORT = process.env.PORT || 8080;
+// const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 6127;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
