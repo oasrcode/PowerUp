@@ -69,7 +69,7 @@ export function Landing() {
           />
           <Card
             key={cardConfig[0].name}
-            data={data?.bodyfat +" %"}
+            data={data?.bodyfat?data?.bodyfat +" %":""}
             img={cardConfig[0].img}
             gradient={cardConfig[0].gradient}
             button={<ButtonCard path={cardConfig[0].path} label={"Calcular"} />}

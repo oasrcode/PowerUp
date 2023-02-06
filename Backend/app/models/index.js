@@ -1,6 +1,7 @@
 const dbConfig = require("../config/db.config");
 
 const Sequelize = require("sequelize");
+
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -40,5 +41,32 @@ db.exercise.hasMany(db.user_logs, {
 db.user_logs.belongsTo(db.users, {foreignKey: 'firebase_id'   });
 
 db.user_logs.belongsTo(db.exercise, { foreignKey: 'exercise_id'});
+
+
+
+// db.exercise.findOne()
+// .then(exercise => {
+//   if (!exercise) {
+//     const exercises = [
+//       { exercise_id: 1, name: 'Press de banca' },
+//       { exercise_id: 2, name: 'Sentadilla' },
+//       { exercise_id: 3, name: 'Peso muerto' },
+//     ];
+
+//     db.exercise.bulkCreate(exercises)
+//       .then(() => {
+//         console.log('Data inserted successfully!');
+//       })
+//       .catch(error => {
+//         console.error('Error inserting data:', error);
+//       });
+//   } else {
+//     console.log('Data already exists, skipping insert.');
+//   }
+// })
+// .catch(error => {
+//   console.error('Error checking data:', error);
+// });
+
 
 module.exports = db;

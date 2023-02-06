@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+
+  mysqldb:
+    image: mysql:5.7.24
+    restart: unless-stopped
+    tty: true
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: powerup
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - backend
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+      - mysqldb
+    links:
+      - mysqldb
+    ports:
+     - "8081:80"
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: mysqldb
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: 123456
+    networks:
+      - backend  
+        
+  
+  backend:
+    depends_on:
+      - mysqldb
+      - phpmyadmin
+    build: ./Backend
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    links:
+      - mysqldb  
+    environment:
+      DB_HOST: mysqldb
+      DB_USER: root
+      DB_PASSWORD: 123456
+      DB_NAME: powerup
+    networks:
+      - backend
+      - frontend
+
+  frontend:
+    depends_on:
+      - backend
+    build:
+      context: ./Frontend
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    networks:
+      - frontend  
+
+volumes: 
+  db:
+
+networks:
+  backend:
+  frontend:
