@@ -61,6 +61,8 @@ export function ModalSignUp({ prop }) {
             value={weight}
             onChange={() => setweight(event.target.value)}
             required
+            min="1"
+            max="300"
           ></input>
         </div>
 
@@ -76,6 +78,8 @@ export function ModalSignUp({ prop }) {
             value={height}
             onChange={() => setheight(event.target.value)}
             required
+            min="1"
+            max="300"
           ></input>
         </div>
 
