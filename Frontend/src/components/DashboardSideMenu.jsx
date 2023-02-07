@@ -11,7 +11,7 @@ export function DashBoardSideMenu() {
   return (
     <div className="hidden lg:flex flex-col w-96 h-screen bg-neutral-900 shadow-lg shadow-black justify-between">
       <div className="flex flex-col items-center gap-10">
-        <div>
+        <div onClick={()=>setPage("dashboard")}>
           <Link to="/dashboard/">
             <h1 className="text-4xl font-bold font-serif  text-white shadow-black drop-shadow-md lg:ml-10 pt-14 cursor-pointer">
               Power<span className="text-red-700 font-bold font-serif">Up</span>
