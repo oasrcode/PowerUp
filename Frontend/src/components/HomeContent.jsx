@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import { UserAuth } from "../Context/AuthContext";
 export function HomeContent() {
-  const { user, SignOut } = UserAuth();
+  const { user } = UserAuth();
   const navigate = useNavigate();
   return (
     <div className="flex flex-col w-full h-[85%] items-center justify-center">

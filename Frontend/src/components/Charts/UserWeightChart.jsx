@@ -9,6 +9,8 @@ import {
   ResponsiveContainer,
 
 } from "recharts";
+
+import { formatDate } from "../../tools/formatDate";
 export function UserWeightChart({ prop,color }) {
   const data = [{}];
 
@@ -17,9 +19,8 @@ export function UserWeightChart({ prop,color }) {
 
     let user_log = {};
     user_log = {};
-    user_log.fecha = element.date;
+    user_log.fecha = formatDate(element.date);
     user_log.peso = element.weight;
-
     data[index] = user_log;
   }
 

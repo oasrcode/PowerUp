@@ -21,13 +21,21 @@ export function Lifts() {
   const [error,setError] = useState();
 
   useEffect(() => {
-    getLifts(exercise_id);
+    
+    fetching();
+   
   }, [exercise_id, reload]);
+
+  function fetching(){
+    getLifts(exercise_id);
+    console.log("ME llaman")
+    setShowTable(false)
+  }
 
   return (
     <div className="flex flex-col lg:flex-row w-full h-screen  2xl:w-11/12  2xl:h-[80%] xl:mx-auto xl:my-auto 2xl:rounded-md  overflow-auto ">
       <div className="flex flex-col lg:w-3/5 lg:h-4/6  m-2">
-        <div className="flex border-b-8 border-red-700  bg-neutral-50 h-20 rounded-t-md justify-center items-center">
+        <div className="flex border-b-8 border-red-700  bg-neutral-50 h-[95px] rounded-t-md justify-center items-center">
           <p className="font-bold font-serif text-2xl text-center text-neutral-900">
             Progreso de levantamientos
           </p>
@@ -70,7 +78,7 @@ export function Lifts() {
         
       </div>
 
-      {messengeSent?<MessengeAlert prop={setMessengeSent} message={error?error:"Datos guardados"}/>:null}
+      {/* {messengeSent?<MessengeAlert prop={setMessengeSent} message={error?error:"Datos guardados"}/>:null} */}
      
     </div>
   );

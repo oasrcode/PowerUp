@@ -16,12 +16,8 @@ export function AddLiftForm({ setReload, prop }) {
     data.firebase_id = user.uid;
     data.weight = weight;
     data.date = date;
-
-
-
     postData(data);
     setReload();
-
     prop(true);
   }
 

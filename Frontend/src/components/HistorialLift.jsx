@@ -5,7 +5,7 @@ import { RiDeleteBin2Line } from "react-icons/ri";
 import { formatDate } from "../tools/formatDate";
 import { putUserLog } from "../Service/User_Logs/putUserLog";
 import { deleteUserLog } from "../Service/User_Logs/deleteUserlog";
-export function HistorialLifts({ data, setReload,prop }) {
+export function HistorialLifts({ data, setReload, prop }) {
   const [weight, setWeight] = useState();
 
   const putData = putUserLog();
@@ -17,7 +17,6 @@ export function HistorialLifts({ data, setReload,prop }) {
       <table className="table-auto text-neutral-50">
         <thead className="bg-neutral-700 border">
           <tr>
-            <th className="border-r">ID</th>
             <th className="border-r">Peso</th>
             <th className="border-r">Fecha</th>
             <th className="border-r">Acciones</th>
@@ -26,8 +25,7 @@ export function HistorialLifts({ data, setReload,prop }) {
         <tbody className="text-center border">
           {data.map((p, key) => {
             return (
-              <tr key={p.log_id} className="hover:bg-neutral-700">
-                <td className="border">{p.log_id}</td>
+              <tr key={key} className="hover:bg-neutral-700">
                 <td className="border">
                   <input
                     type={"text"}

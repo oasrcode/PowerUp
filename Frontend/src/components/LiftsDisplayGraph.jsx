@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { UserWeightChart } from "./Charts/UserWeightChart";
-import { UserAuth } from "../Context/AuthContext";
+
 
 export function LiftsDisplayGraphs({ setExercise_ID, exercise_id, data }) {
-  const { user } = UserAuth();
+
   const [bench, setBench] = useState(true);
   const [squat, setSquat] = useState(false);
   const [deadlift, setDeadlift] = useState(false);
@@ -19,7 +19,7 @@ export function LiftsDisplayGraphs({ setExercise_ID, exercise_id, data }) {
               : "text-xs px-4 py-2 my-1 2xl:text-base 2xl:px-10 2xl:py-4 bg-neutral-50 text-neutral-900 rounded-md text-center font-semibold font-serif hover:opacity-60"
           }
           onClick={() => {
-            setBench(!bench),
+            setBench(true),
               setExercise_ID(1),
               setColor("#b91c1c"),
               setSquat(false),
@@ -35,7 +35,7 @@ export function LiftsDisplayGraphs({ setExercise_ID, exercise_id, data }) {
               : "text-xs px-4 py-2 my-1 2xl:text-base 2xl:px-10 2xl:py-4 bg-neutral-50 text-neutral-900 rounded-md text-center font-semibold font-serif hover:opacity-60"
           }
           onClick={() => {
-            setSquat(!squat),
+            setSquat(true),
               setExercise_ID(2),
               setColor("#0369a1"),
               setBench(false),
@@ -51,7 +51,7 @@ export function LiftsDisplayGraphs({ setExercise_ID, exercise_id, data }) {
               : "text-xs px-4 py-2 my-1 2xl:text-base 2xl:px-10 2xl:py-4 bg-neutral-50 text-neutral-900 rounded-md text-center font-semibold font-serif hover:opacity-60"
           }
           onClick={() => {
-            setDeadlift(!deadlift),
+            setDeadlift(true),
               setExercise_ID(3),
               setColor("#15803d"),
               setSquat(false),
