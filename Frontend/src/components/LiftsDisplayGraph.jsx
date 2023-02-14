@@ -63,7 +63,7 @@ export function LiftsDisplayGraphs({ setExercise_ID, exercise_id, data }) {
       </div>
 
       <div className=" w-11/12 h-80 mb-1 bg-neutral-50 mx-auto  lg:mt-4 overflow-x-auto ">
-        <UserWeightChart key={exercise_id} prop={data} color={color} />
+        <UserWeightChart prop={data} color={color} />
       </div>
     </div>
   );

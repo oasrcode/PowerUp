@@ -13,7 +13,7 @@ import {
 import { formatDate } from "../../tools/formatDate";
 export function UserWeightChart({ prop,color }) {
   const data = [{}];
-
+  console.log(prop)
   for (let index = 0; index < prop?.length; index++) {
     const element = prop[index];
 
